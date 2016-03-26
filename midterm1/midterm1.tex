@@ -6,21 +6,23 @@
 \documentclass[a4paper]{article}
 
 \title{Math 8584 Midterm 1 }
-\date{4/2/16}
+\date{4/4/16}
 \author{Trevor Steil}
 
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{esint}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[section]
 \newtheorem{proposition}{Proposition}[section]
 \newtheorem{lemma}{Lemma}[section]
-\newtheorem*{claim}{Claim}
-\newtheorem*{problem}{Problem}
-%\newtheorem*{lemma}{Lemma}
 \newtheorem{definition}{Definition}[section]
+
+\newenvironment{solution}{\emph{Solution.}}{}
+\newenvironment{claim}{\textbf{Claim.}}{}
+\newenvironment{problem}{\textbf{Problem.}}{}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
@@ -32,11 +34,98 @@
 \newcommand{\ra}{\right \rangle}
 \renewcommand{\vec}[1]{\mathbf{#1}}
 
-\newenvironment{solution}{\emph{Solution.}}
-
 \begin{document}
 \maketitle
-<++>
+
+\begin{enumerate}
+  \item
+    \begin{problem}
+      Construct a function $u \in S(\R)$ (i.e. a Schwartz-class function in one dimension) that is not exponentially small at infinity.
+      That is, construct a Schwartz-class function which satisfies that for all $a > 0$,
+      \[ e^{a |x|^a} u \not \in L^\infty(\R) .\]
+    \end{problem}
+
+    \begin{solution}
+    \end{solution}
+
+  \item
+    \begin{problem}
+      Justify the following inequalities from Hunter's notes for a smooth function $u$ on $\R^n$:
+      \begin{align*}
+        \Delta u(x) &= \lim_{r \to 0^+} \fint_{B_r(x)} \Delta u dx \\
+        &= \lim_{r \to 0^+} \fint_{\partial B_r(x)}^{} u(y) d\sigma(y) \\
+        &= \lim_{r \to 0^+} \frac{2n}{r^2} \left[ \fint_{\partial B_r(x)}^{} u(y) d\sigma(y) - u(x) \right]
+      \end{align*}
+
+    \end{problem}
+
+    \begin{solution}
+      Because $u$ is smooth, $\Delta u$ is smooth, and in particular, $\Delta u$ is continuous.
+    \end{solution}
+
+  \item Evans, Chapter 6 \#7 \\
+    \begin{claim}
+      Let $u \in H^1(\R^n)$ have compact support and be a weak solution of the semilinear PDE
+      \[ - \Delta u + c(u) = f \quad \text{in } \R^n ,\]
+      where $f \in L^2(\R^n)$ and $c: \R \to \R$ is smooth, with $c(0) = 0$ and $c' \geq 0.$ Then $u \in H^2(\R^n)$.
+    \end{claim}
+
+    \begin{proof}
+    \end{proof}
+
+  \item Evans, Chapter 6 \#8 \\
+    \begin{claim}
+      Let $u$ be a smooth solution of the uniformly elliptic equation $Lu = - \sum_{i,j=1}^n a^{ij}(x) u_{x_i x_j} = 0$ in $U$. Assume that the
+      coefficients have bounded derivatives.
+      Set $v := |Du|^2 + \lambda u^2$. Then
+      \[ Lv \leq 0 \quad \text{in } U \]
+      if $\lambda$ is large enough. Therefore,
+      \[ \| Du \|_{L^\infty(U)} \leq C \left( \| Du \|_{L^\infty(\partial U)} + \| u \|_{L^\infty(\partial U)} \right). \]
+    \end{claim}
+
+    \begin{proof}
+    \end{proof}
+
+  \item Evans, Chapter 6 \#10 \\
+    \begin{problem}
+      Assume $U$ is connected. Use (a) energy methods and (b) the maximum principle to show that the only smooth solutions of the Neumann
+      boundary-value problem
+      \[ \begin{cases}
+          - \Delta u = 0 &\text{in } U \\
+          \frac{\partial u}{\partial \nu} = 0 &\text{on } \partial U
+      \end{cases} \]
+      are $u \equiv C$, for some constant $C$.
+    \end{problem}
+
+      \begin{proof}
+      \end{proof}
+
+  \item Renardy-Rogers, pg. 225 \#5 \\
+    \begin{claim}
+      Assume $u,v \in H^1(\R)$. Then $uv \in H^1(\R)$.
+    \end{claim}
+
+    \begin{proof}
+    \end{proof}
+
+  \item Renardy-Rogers, pg. 225 \#8 \\
+    \begin{claim}
+      Let $\Omega$ satisfy the assumptions of Theorem 7.29. Then every weakly convergent sequence in $H^{k+1}(\Omega)$ converges strongly in
+      $H^k(\Omega)$.
+    \end{claim}
+
+    \begin{proof}
+    \end{proof}
+
+  \item Renardy-Rogers, pg. 225 \#10 \\
+    \begin{claim}
+      Let $\Omega$ be bounded (no assumptions on $\partial \Omega$). Then $H_0^{k+1}(\Omega)$ is compactly embedded in $H^k(\Omega)$.
+    \end{claim}
+
+    \begin{proof}
+    \end{proof}
+
+\end{enumerate}
 \end{document}
 
 
