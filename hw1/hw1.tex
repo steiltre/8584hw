@@ -1,0 +1,240 @@
+%        File: hw1.tex
+%     Created: Tue Feb 09 07:00 PM 2016 C
+% Last Change: Tue Feb 09 07:00 PM 2016 C
+%
+
+\documentclass[a4paper]{article}
+
+\title{Math 8584 Homework 1 }
+\date{2/15/16}
+\author{Trevor Steil}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\newtheorem*{claim}{Claim}
+\newtheorem*{problem}{Problem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\supp}[1]{\mathop{\mathrm{supp}}\left(#1\right)}
+\newcommand{\la}{\left \langle}
+\newcommand{\ra}{\right \rangle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newenvironment{solution}{\emph{Solution.}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item \begin{claim}
+  Let
+  \[ Lu = - \sum_{i,j=1}^n \left( a^{ij} u_{x_i} \right)_{x_j} + cu .\]
+  Then there exists a constant $\mu > 0$ such that the corresponding bilinear form $B[\ , \ ]$ satisfies the hypotheses of the Lax-Milgram Theorem, provided
+  \[ c(x) \geq - \mu \quad (x \in U).\]
+\end{claim}
+
+\begin{proof}
+
+  The bilinear form associated to $L$ is given by
+  \[ B[u,v] = \int_{U}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} v_{x_j} + cuv dx .\]
+
+  For any $u,v \in H_0^1(U)$,
+  \begin{align*}
+    | B[u,v] | &\leq \int_{U}^{} \sum_{i,j=1}^n |a^{ij} u_{x_i} v_{x_j}| + |c u v| dx \\
+    &\leq \sum_{i,j=1}^n \|a^{ij}\|_{L^\infty} \int_{U}^{} |u_{x_i}| |v_{x_j}| dx + \|c\|_{L^\infty} \int_{U}^{} |u| |v| dx \\
+    &\leq \sum_{i,j=1}^n \|a^{ij}\|_{L^\infty} \|u_{x_i}\|_{L^2} \|v_{x_j}\|_{L^2} + \|c\|_{L^\infty} \|u\|_{L^2} \|v\|_{L^2} \quad \parbox{3cm}{by Cauchy-Schwarz} \\
+    &\leq A \|Du\|_{L^2} \|Dv\|_{L^2} + \|c\|_{L^\infty} \|u\|_{L^2} \|v\|_{L^2} \quad \parbox{5cm}{where ${A = \min\limits_{1 \leq i,j \leq n} \|a^{ij}\|_{L^\infty}}$} \\
+    &\leq C \|u\|_{H_0^1} \|v\|_{H_0^1} \quad \parbox{4cm}{where $C = A + \|c\|_{L^\infty}$} \\
+  \end{align*}
+  Thus $B$ is bounded.
+
+  Take $u \in H_0^1(U)$. By Poincare's inequality, we have
+  \[ \|u\|_{L^2(U)}^2 \leq C \|Du\|_{L^2(U)}^2 \]
+  for some $C>0$, and by uniform ellipticity, we have
+  \[ \theta |\xi|^2 \leq \sum_{i,j=1}^n a^{ij}(x) \xi_i \xi_j \]
+  for some $\theta > 0$, a.e. $x \in U$ and all $\xi \in \R^n$.
+
+  Assume that $c(x) \geq - \gamma$ for some $ \gamma >  \frac{C \theta}{2} > 0$. Then
+  \begin{align*}
+    B[u,u] &= \int_{U}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} + c u^2 dx \\
+    &\geq \theta \int_{U}^{} |Du|^2 + cu^2 dx \\
+    &\geq \theta \|Du\|_{L^2(U)}^2 - \frac{C \theta}{2} \int_{U}^{} u^2 dx \\
+    &\geq \frac{\theta}{2} \|Du\|_{L^2(U)}^2 + \frac{\theta}{2} \|Du\|_{L^2(U)}^2 - \gamma \|u\|_{L^2(U)}^2 \\
+    &\geq \frac{\theta}{2} \|Du\|_{L^2(U)}^2 + \left( \frac{C \theta}{2} - \gamma \right) \|u\|_{L^2(U)}^2 \\
+    &\geq C' \|u\|_{H_0^1(U)}
+  \end{align*}
+  for some $C'>0$ because $\gamma < \frac{C \theta}{2}$. Thus we have coercivity, and $B$ therefore satisfies the hypotheses of the Lax-Milgram Theorem.
+\end{proof}
+
+\item
+  A function $u \in H_0^2(U)$ is a weak solution of this boundary-value problem for the biharmonic equation
+  \begin{equation}\label{eq1}
+  \begin{cases}
+    \Delta^2 u = f \text{ in } U \\
+    u = \frac{\partial u}{\partial \nu} = 0 \text{ on } \partial U
+  \end{cases}
+\end{equation}
+provided
+\[ \int_{U}^{} \Delta u \Delta v dx = \int_{U}^{} fv dx \]
+for all $v \in H_0^2(U).$
+\begin{claim}
+  Given $f \in L^2(U)$, there exists a unique weak solution of \eqref{eq1}.
+\end{claim}
+
+\begin{proof}
+
+  We have the associated bilinear form
+  \[ B[u,v] = \int_{U}^{} \Delta u \Delta v dx .\]
+
+  First we will show that for any $u \in H_0^2(U)$, we have that ${\|\Delta u \|_{L^2} = \| D^2 u \|_{L^2}}$.
+  \begin{align*}
+    \|\Delta u\|_{L^2}^2 &= \int_{U}^{} |\Delta u|^2 dx \\
+    &= \int_{U}^{} \left| \left( \sum_{i=1}^n u_{x_i x_i} \right) \left( \sum_{j=1}^n u_{x_j x_j} \right) \right| dx \\
+    &= \sum_{i,j=1}^n \int_{U}^{} | u_{x_i x_j} u_{x_i x_j} | dx \quad \parbox{4cm}{by integrating by parts} \\
+    &= \sum_{i,j=1}^n \|u_{x_i x_j}\|_{L^2}^2 \\
+    &= \|D^2 u\|_{L^2}^2
+  \end{align*}
+
+  Then for any $u,v \in H_0^2(U)$,
+  \begin{align*}
+    |B[u,v]| &\leq \int_{U}^{} | \Delta u \Delta v| dx \\
+    &\leq \|\Delta u\|_{L^2} \|\Delta v\|_{L^2} \quad \parbox{4cm}{by Cauchy-Schwarz} \\
+    &= \|D^2 u\|_{L^2} \|D^2 v\|_{L^2} \\
+    &\leq \|u\|_{H_0^1} \|v\|_{H_0^1}
+  \end{align*}
+  Thus we have boundedness of $B$.
+
+  To show coercivity, let $u \in H_0^1(U)$. Then
+  \begin{align*}
+    B[u,u] &= \|D^2 u\|_{L^2}^2 \\
+    &\geq \frac{1}{2} \|D^2 u \|_{L^2}^2 + \frac{C}{2} \|Du\|_{L^2}^2 \quad \parbox{4cm}{by Poincar\a'e's Inequality} \\
+    &\geq \frac{1}{2}\|D^2u\|_{L^2}^2 + \frac{C}{4} \|Du\|_{L^2}^2 + \frac{C^2}{2} \|u\|_{L^2}^2 \\
+    &\geq A \|u\|_{H_0^2}^2 \quad \parbox{5cm}{where $A = \min \left\{ \frac{1}{2}, \frac{C}{4}, \frac{C^2}{2} \right\} >0$.}
+  \end{align*}
+
+  Now we define
+  \[ \la f, v \ra = ( f, v )_{L^2} \]
+  for any $v \in H_0^2$.
+  Then
+  \[ | \la f, v \ra | \leq \|f\|_{L^2} \|v\|_{L^2} \leq \|f\|_{L^2} \|v\|_{H_0^2},\]
+  so this defines a bounded linear functional on $H_0^2(U)$. By Lax-Milgram, there is a unique $u \in H_0^2$ such that
+  \[ B[u,v] = \la f, v \ra \]
+  for all $v \in H_0^2(U)$. This translates to
+  \[ \int_{U}^{} \Delta u \Delta v dx = \int_{U}^{} fv dx, \]
+  which is what we wanted to show.
+\end{proof}
+
+\item
+  Assume $U$ is connected. A function $u \in H^1(U)$ is a weak solution of Neumann's problem
+  \begin{equation}\label{eq2}
+    \begin{cases}
+      -\nabla u = f \text{ in } U \\
+      \frac{\partial u}{\partial \nu} = 0 \text{ on } \partial U
+    \end{cases}
+  \end{equation}
+  if
+  \[ \int_{U}^{} Du \cdot Dv dx = \int_{U}^{} fv dx \]
+  for all $v \in H^1(U)$.
+  \begin{claim}
+    Suppose $f \in L^2(U)$. Then \eqref{eq2} has a weak solution if and only if
+    \[ \int_{U}^{} f dx = 0.\]
+  \end{claim}
+
+    \begin{proof}
+      Assume that $u$ is a weak solution of \eqref{eq2}. Let $c \in \R$. Then for any $v \in H^1(U)$,
+      \begin{align*}
+	\int_{U}^{} fv dx &= \int_{U}^{} Du \cdot Dv dx \\
+	&= \int_{U}^{} Du \cdot D(v+c) dx \\
+	&= \int_{U}^{} f (v+c) dx \\
+	&= \int_{U}^{} fv dx + c \int_{U}^{} f dx
+      \end{align*}
+      Thus we need $\int_{U}^{} f dx = 0$ for \eqref{eq2} to have a weak solution.
+
+      Now we assume $\int_{U}^{} f dx = 0$. Because addition by constants doesn't change any of the equations we are working with, we will use the space
+      \[ V = \left\{ v \in H^1(U) | \int_{U}^{} v dx = 0 \right\} .\]
+      This is easily seen to be a Hilbert space (with the $H^1$ inner product) because $H^1$ is. If we take $u,v \in V$ and $c \in \R$, then
+      \begin{align*}
+	\int_{U}^{} (u+v) dx &= \int_{U}^{} u dx + \int_{U}^{} v dx \\
+	&= 0
+      \end{align*}
+      and
+      \begin{align*}
+	\int_{U}^{} c u dx &= c \int_{U}^{} u dx \\
+	&= 0
+      \end{align*}
+
+      If we take a sequence $\{ u_n \}_{n=1}^\infty \subset V$, it converges to a function $u \in H^1(U)$ because $V \subset H^1(U)$ is complete. We must show that $\int_{U}^{} u dx = 0$ so $u \in V$ and $V$ is complete.
+      In particular, we know  $u_n \to u$ in $L^2(U)$. Therefore, there is a subsequence $u_{n_k}$ that converges pointwise a.e. to $u$. Then by Fatou's Lemma
+      \[ \int_{U}^{} u dx \leq \liminf_{k \to \infty} \int_{U}^{} u_{n_k} dx = 0 .\]
+      Therefore, $u \in V$ and $V$ is complete.
+      All other properties are immediate from $H^1$ being a Hilbert space.
+
+      We have the associated bilinear form
+      \[ B[u,v] = \int_{U}^{} Du \cdot Dv dx .\]
+      For any $u,v \in V$,
+      \begin{align*}
+	| B[u,v] | &\leq \int_{U}^{} |Du| |Dv| dx \\
+	&\leq \|Du\|_{L^2} \|Dv\|_{L^2} \\
+	&\leq \|u\|_{L^2} \|v\|_{L^2}
+      \end{align*}
+      Thus we have boundedness of $B$.
+
+      Let $u \in V$. Define $\overline{u}$ to be the average of $u$ in $U$. That is, 
+      \[ \overline{u} = \frac{1}{|U|} \int_{U}^{} u dx .\]
+      Then
+      \begin{align}
+	\|u\|_{L^2} &= \|u - \overline{u} \|_{L^2} \quad \parbox{5cm}{by definition of $V$} \nonumber \\
+	&\leq C \|Du\|_{L^2} \quad \parbox{5cm}{by Poincar\a'e's Inequality (because $U$ is connected)} \label{Poin}
+      \end{align}
+      for some constant $C>0$.
+
+      Now we will show coercivity.
+      \begin{align*}
+	B[u,u] &= \|Du\|_{L^2}^2 \\
+	&= \frac{1}{2} \|Du\|_{L^2}^2 + \frac{1}{2} \|Du\|_{L^2}^2 \\
+	&\geq \frac{1}{2} \|Du\|_{L^2}^2 + \frac{1}{2C^2}\|u\|_{L^2}^2 \quad \parbox{5cm}{by \eqref{Poin}} \\
+	&\geq A \|u\|_{H^1}^2
+      \end{align*}
+      where $A = \min \left\{ \frac{1}{2}, \frac{1}{2C^2} \right\}$. Thus we have coercivity.
+
+      Define
+      \[ \la f, v \ra = (f,v)_{L^2} \]
+      for any $v \in V$. We see
+      \[ | \la f, v \ra | \leq \|f\|_{L^2} \|v\|_{L^2} \leq \|f\|_{L^2} \|v\|_{H^1} .\]
+      So this defines a bounded linear functional on $V$. Thus by Lax-Milgram, there is a unique $u \in V$ such that
+      \[ B[u,v] = \la f, v \ra \]
+      for all $v \in V$. In other words,
+      \[ \int_{U}^{} Du \cdot Dv dx = \int_{U}^{} fv dx \]
+      for all $v \in V$.
+
+      Now we must show that $u$ is a weak solution by showing the above holds for any $v \in H^1(U)$ (not necessarily in $V$).
+      For any $v \in H^1(U)$, we see that 
+      \begin{align*}
+	\overline{v - \overline{v}} &= \frac{1}{|U|} \int_{U}^{} (v - \overline{v})dx \\
+	&= \overline{v} - \frac{\overline{v}}{|U|} \int_{U}^{} dx \\
+	&= \overline{v} - \overline{v}
+	&= 0
+      \end{align*}
+
+      Thus $v - \overline{v} \in V$, and we can apply our results from above. This leads us to
+      \begin{align*}
+	\int_{U}^{} Du \cdot Dv dx &= \int_{U}^{} Du \cdot D(v-\overline{v}) dx \quad \parbox{5cm}{because $\overline{v}$ is a constant} \\
+	&= \int_{U}^{} f (v - \overline{v}) dx \quad \parbox{5cm}{because $v - \overline{v} \in V$} \\
+	&= \int_{U}^{} fv dx - \overline{v} \int_{U}^{} f dx \\
+	&= \int_{U}^{} fv dx \quad \parbox{5cm}{because $\int_{U}^{} f dx = 0$}
+      \end{align*}
+
+      Therefore $u \in V \subset H^1(U)$ is a weak solution to \eqref{eq2}.
+
+      It is worth noting that $u$ was the unique weak solution when only considering functions in $V$, but that uniqueness is lost when considering $u$ as a weak solution in $H^1(U)$. This can easily be seen by noticing $u+c$ is a weak solution for any $c \in \R$.
+
+    \end{proof}
+
+\end{enumerate}
+\end{document}
+
+

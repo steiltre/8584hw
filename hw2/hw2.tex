@@ -1,0 +1,326 @@
+%        File: hw2.tex
+%     Created: Thu Feb 18 01:00 PM 2016 C
+% Last Change: Thu Feb 18 01:00 PM 2016 C
+%
+
+\documentclass[a4paper]{article}
+
+\title{Math 8584 Homework 2 }
+\date{2/26/16}
+\author{Trevor Steil}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\newtheorem*{claim}{Claim}
+\newtheorem*{problem}{Problem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\supp}[1]{\mathop{\mathrm{supp}}\left(#1\right)}
+\newcommand{\curl}{\mathrm{curl}}
+\newcommand{\la}{\left \langle}
+\newcommand{\ra}{\right \rangle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newenvironment{solution}{\emph{Solution.}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item Rauch Geometric Optics Notes pg. 390
+    \begin{problem}
+      Compute the matrices $A_j$. In particular, verify that they are symmetric.
+    \end{problem}
+
+    \begin{solution}
+      We have Maxwell's equations
+      \begin{align*}
+	E_t &= c \ \curl B - 4\pi \mathbf{j} \\
+	B_t &= -c \ \curl E
+      \end{align*}
+
+      Write $E = (E_1, E_2, E_3), B = (B_1, B_2, B_3),$ and $u = (E,B)$. Then Maxwell's equations become
+      \begin{align*}
+	\frac{\partial u}{\partial t} &= \left( \frac{\partial E}{\partial t}, \frac{\partial B}{\partial t} \right) \\
+	&= c \left( \curl B, - \curl E \right) - 4\pi \left(\mathbf{j}, 0 \right)
+      \end{align*}
+
+      So
+      \[ \frac{\partial u}{\partial t} + c (-\curl B, \curl E) = -4\pi (\mathbf{j},0).\]
+
+      By definition,
+      \[ \curl E = \left( \frac{\partial E_3}{\partial x_2} - \frac{\partial E_2}{ \partial x_3}, \frac{\partial E_1}{\partial x_3} - \frac{\partial E_3}{\partial x_1}, \frac{\partial E_2}{\partial x_1} - \frac{\partial E_1}{\partial x_2} \right), \]
+      and similarly for $\curl B$.
+
+      Writing out 
+      \[ \frac{\partial u}{\partial x_j} = \left( \frac{\partial E_1}{\partial x_j}, \frac{\partial E_2}{\partial x_j}, \frac{\partial E_3}{\partial x_j}, \frac{\partial B_1}{\partial x_j}, \frac{\partial B_2}{\partial x_j}, \frac{\partial B_3}{\partial x_j} \right), \]
+      we can say
+      \[ \frac{\partial u}{\partial t} + \sum_{j=1}^3 c A_j \frac{\partial u}{\partial x_j} = -4\pi(\mathbf{j},0) \]
+      by letting
+      \[ A_1 = 
+	\begin{pmatrix}
+	  0 & 0 & 0 & 0 & 0 & 0 \\
+	  0 & 0 & 0 & 0 & 0 & 1 \\
+	  0 & 0 & 0 & 0 & -1 & 0 \\
+	  0 & 0 & 0 & 0 & 0 & 0 \\
+	  0 & 0 & -1 & 0 & 0 & 0 \\
+	  0 & 1 & 0 & 0 & 0 & 0 \\
+      \end{pmatrix} \]
+
+      \[ A_2 = 
+	\begin{pmatrix}
+	  0 & 0 & 0 & 0 & 0 & -1 \\
+	  0 & 0 & 0 & 0 & 0 & 0 \\
+	  0 & 0 & 0 & 1 & 0 & 0 \\
+	  0 & 0 & 1 & 0 & 0 & 0 \\
+	  0 & 0 & 0 & 0 & 0 & 0 \\
+	  -1 & 0 & 0 & 0 & 0 & 0 \\
+	\end{pmatrix} \]
+
+	and
+
+	\[ A_3 =
+	  \begin{pmatrix}
+	  0 & 0 & 0 & 0 & 1 & 0 \\
+	  0 & 0 & 0 & -1 & 0 & 0 \\
+	  0 & 0 & 0 & 0 & 0 & 0 \\
+	  0 & -1 & 0 & 0 & 0 & 0 \\
+	  1 & 0 & 0 & 0 & 0 & 0 \\
+	  0 & 0 & 0 & 0 & 0 & 0 \\
+      \end{pmatrix} .\]
+
+      These matrices are clearly symmetric.
+	   
+    \end{solution}
+
+  \item Rauch Geometric Optics Notes pg. 393, finish proof of Proposition 2.1
+    \begin{claim}
+      For every $s \in R$ there is a constant $C$ so that for all smooth $u$ on space time such that $\supp{u} \cap ([0,t] \times \R^d)$ is compact for all $t$,
+      \[ \|u(t)\|_{H^s(\R^d)} \leq C e^{Ct} \|u(0)\|_{H^s(\R^d)} + \int_{0}^{t} C e^{C(t-\tau)} \|(Lu)(\tau)\|_{H^s(R^d)} d \tau.\]
+    \end{claim}
+
+    \begin{proof}
+      Let $s \geq 0$ be an integer,
+      \[ L = \sum_{\mu=0}^d A_\mu(y) \frac{\partial}{\partial y_\mu} + B(y) \]
+      and
+      \[
+      G(t) = - \sum_{1 \leq j \leq d} A_j(y) \frac{\partial}{\partial y_j} + B(y) .\]
+      Then any smooth $u$ satisfies
+      \[ A_0(y) \frac{\partial u}{\partial y_1} - G(t) u = Lu .\]
+
+      We have
+      \[ G(t) + G(t)^\ast = B(y) + B^\ast(y) - \sum_{j=1}^d (\partial_j A_j(y)) .\]
+      By assumption, all of these matrices are bounded, go $G(t) + G(t)^\ast$ is bounded. Because $A_0(y) \geq cI$, $c^2\|u\| \leq \|A_0 u\|$. By using the $L^2$ estimates established in the notes, we get
+      \begin{equation} \label{L2_est}
+      \|\partial_x^\alpha u(t) \| \leq C e^{Ct} \|\partial_x^\alpha u(0)\| + \int_{0}^{t} C e^{C(t-\tau)} \|L \partial_x^\alpha u(\tau)\| d\tau
+    \end{equation}
+      for some constant $C$ and for any $|\alpha|\leq s$.
+
+      By applying the product rule,
+      \begin{align*}
+	\partial_x^\alpha (Lu) &= \partial_x^\alpha \left( \sum_{\mu = 0}^d A_\mu(y) \partial_{y_\mu} u + B(y) u \right) \\
+	&= L(\partial_x^\alpha u) + \sum_{|\beta|\leq s} C_{\alpha,\beta}(y) \partial_x^\beta u
+    \end{align*}
+    where the $L(\partial_x^\alpha u)$ term comes from when all of the derivatives are placed on $u$, and the matrices $C_{\alpha,\beta}$ are sums of derivatives of the $A_\mu$ and $B$. By assumption, derivatives of $A_\mu$ and $B$ are in $L^\infty$, so the $C_{\alpha,\beta}$ are bounded as well.
+    Using this in \eqref{L2_est}, we get
+    \begin{align*}
+      \|\partial_x^\alpha u(t) \| &\leq C e^{Ct} \|\partial_x^\alpha u(0) \| + \int_{0}^{t} C e^{C(t-\tau)} \|\partial_x^\alpha Lu(\tau)\|d\tau + \sum_{|\beta|\leq s} \int_{0}^{t} C e^{C(t-\tau)} \|\partial_x^\beta u(\tau) \| d\tau \\
+      &= C e^{Ct} \|\partial_x^\alpha u(0) \| + \int_{0}^{t} C e^{C(t-\tau)} \|\partial_x^\alpha Lu(\tau)\|d\tau + \int_{0}^{t} C e^{C(t-\tau)} \|u(\tau)\|_{H^s} d\tau
+    \end{align*}
+    for some constant $C$ (possibly different than $C$ from before).
+
+    By summing over all $|\alpha| \leq s$, we have
+    \begin{align*}
+      \|u(t)\|_{H^s} \leq C e^{Ct} \|u(0)\|_{H^s} + \int_{0}^{t} Ce^{C(t-\tau)} \|Lu(\tau)\|_{H^s} d\tau + \int_{0}^{t} C C' e^{C(t-\tau)} \|u(\tau)\|_{H^s} d\tau \\
+    \end{align*}
+    where $C'$ is the number of $\alpha$ with $|\alpha| \leq s$. By allowing $C$ to become larger, we get
+    \begin{equation*}
+      \|u(t)\|_{H^s} \leq C e^{Ct} \|u(0)\|_{H^s} + \int_{0}^{t} C e^{C(t-\tau)} \left( \|Lu(\tau)\|_{H^s} + \|u(\tau)\|_{H^s} \right) d\tau
+    \end{equation*}
+
+    By Gronwall's inequality, this gives
+    \begin{align*}
+      \|u(t)\|_{H^s} \leq \left( C e^{Ct}\|u(0)\|_{H^s} + \int_{0}^{t} C e^{C(t-\tau)} \|Lu(\tau)\|_{H^s} d\tau \right) \int_{0}^{t} C e^{C(t-\tau)} d\tau
+    \end{align*}
+
+    Recognizing $\int_{0}^{t} C e^{C(t-\tau)} d\tau$ as a constant, and letting our constant $C$ become potentially larger, we have
+    \begin{equation*}
+      \|u(t)\|_{H^s} \leq C e^{Ct} \|u(0)\|_{H^s} + \int_{0}^{t} C e^{C(t-\tau)} \|Lu(\tau)\|_{H^s} d\tau
+    \end{equation*}
+    as we wanted to show.
+    \end{proof}
+
+  \item Rauch Geometric Optics Notes pg. 394
+    \begin{problem}
+    Use the Fourier Transform to show that for any $s \in \R$ and $g \in H^s(\R)$, this recipe determines a sequence of approximate solutions which as $h \to 0$, converge in $C(]-\infty,\infty[; H^s(\R))$ to the exact solution.
+    \end{problem}
+
+    \begin{solution}
+      We have the transport equation
+      \begin{equation*}
+	\partial_t u + \partial_x u = 0, \quad u(0,x) = g(x)
+      \end{equation*}
+
+      We define our approximate solution $u^h$ as the solution to
+      \begin{equation} \label{approx_eq}
+	\partial_t u^h + \delta^h u^h = 0, \quad u^h(0,x) = g(x)
+      \end{equation}
+      where
+      \[ \delta^h \varphi(x) = \frac{\varphi(x+h) - \varphi(x-h)}{2h} .\]
+
+      Taking the Fourier transform in space of \eqref{approx_eq}, we get
+      \begin{equation*}
+	\partial_t \hat{u}^h(t,\xi) + \frac{e^{2\pi ih\xi} \hat{u}^h(t,\xi) - e^{-2\pi ih\xi} \hat{u}^h(t,\xi)}{2h}=0, \quad \hat{u}^h(0,\xi) = \hat{g}(\xi).
+      \end{equation*}
+      Simplifying, we get
+      \begin{equation*}
+	\partial_t \hat{u}^h(t,\xi) + i \hat{u}^h(t,\xi) \frac{\sin(2\pi h \xi)}{h} = 0, \quad \hat{u}(0,\xi) = \hat{g}(\xi).
+      \end{equation*}
+
+      By introducing an integrating factor, we can see the solution is given by
+      \begin{equation*}
+	\hat{u}^h(t,\xi) = \hat{g}(\xi) \exp \left( -i \frac{\sin(2\pi h \xi)}{h}t \right)
+      \end{equation*}
+
+      Taking $h \to 0$, we can define
+      \[ \hat{u}(t,\xi) = \hat{g}(\xi) e^{-2\pi i \xi t} .\]
+
+      Taking the inverse Fourier transform gives
+      \begin{equation*}
+	u(t,x) = g(x-t) \\
+      \end{equation*}
+      which is the solution to the transport equation, as we expected to see. Now we must show $u^h(t) \to u(t)$ in $H^s(\R)$ for all $t$.
+
+      \begin{align*}
+	\|u^h(t) - u(t)\|_{H^s} &= \left\| (1+|\xi|^s) \mathcal{F}(u^h(t) - u(t)) \right\|_{L^2} \\
+	  &= \left\|(1+|\xi|^s) \hat{g}(\xi) \left( \exp \left(-i \frac{\sin(2\pi h \xi)}{h}t \right) - \exp(-2 \pi i \xi t) \right) \right\|_{L^2} \\
+	  &\leq \| g \|_{H^s} \left\| \exp \left( -i \frac{\sin(2 \pi h \xi)}{h}t \right) - \exp(-2 \pi i \xi t) \right \|_{L^\infty}
+      \end{align*}
+
+      Therefore, as we take $h \to 0$, we have
+      \[ \| u^h(t) - u(t) \|_{H^s} \to 0 \]
+      for all $t$. This means $u_h \to u$ in $C(]-\infty,\infty[; H^s(\R))$.
+
+    \end{solution}
+
+  \item Rauch Geometric Optics Notes pg. 394
+    \begin{claim}
+      For the approximations to the nonhyperbolic initial value problem,
+      \[ \partial_t u + i \partial_x u = 0, \quad u(0,x) = g(x),\]
+      we have
+      \[ \liminf_{h \to 0} \|u^h(t)\|_{L^2(\R)}^2 \geq \int_{\R}^{} e^{2 t \xi} |\hat{g}(\xi)|^2 d\xi .\]
+      In particular, if the right hand side is infinite, $u^h(t)$ does not converge in $L^2(\R)$ as $h \to 0$. The right hand side is infinite for generic $g \in C_0^\infty(\R)$. Also, for generic smooth $g, u^h(t)$ is unbounded in $H^s(\R)$ for all $t \not= 0$ and $s < 0$.
+    \end{claim}
+
+    \begin{proof}
+      We define our approximations to satisfy
+      \[ \partial_t u^h + i \delta^h u^h = 0, \quad u^h(0,x) = g(x). \]
+      We will take the Fourier Transform in space as above. In this case, our initial value problem becomes
+      \begin{align*}
+	0 &= \partial_t \hat{u}^h + i \frac{e^{2\pi h \xi} \hat{u}^h - e^{-2\pi h \xi} \hat{u}^h}{2h} \\
+	&= \partial_t \hat{u}^h - \frac{\sin(2\pi h \xi)}{h} \hat{u}^h
+      \end{align*}
+      with the initial condition $\hat{u}^h(0,\xi) = \hat{g}(\xi)$. By introducing an integrating factor, we find our solution is
+      \[ \hat{u}^h(t,\xi) = \hat{g}(\xi) \exp\left( \frac{\sin(2\pi h \xi)}{h}t \right) .\]
+
+      We see that 
+      \begin{equation*}
+	\lim_{h\to 0} \hat{u}^h(t, \xi) = \hat{g}(\xi) e^{2\pi\xi t}
+      \end{equation*}
+
+      This gives us
+      \begin{align*}
+	\int_{\R}^{} e^{4\pi \xi t} |\hat{g}(\xi)|^2 d\xi &\leq \liminf_{h \to 0} \int_{\R}^{} |\hat{u}^h(t,\xi)|^2 d\xi \quad \parbox{4cm}{by Fatou's Lemma} \\
+	&= \liminf_{h \to 0} \|\hat{u}^h(t)\|_{L^2(\R)}^2 \\
+	&= \liminf_{h \to 0} \|u^h(t)\|_{L^2(\R)}^2 \quad \parbox{4cm}{by Plancherel's Theorem}
+      \end{align*}
+
+    \end{proof}
+
+  \item Rauch Geometric Optics Notes pg. 394, prove Friedrich's Theorem
+    \begin{claim}
+      If $g \in H^s(\R^d)$ and $f \in L^1_{loc}(\R; H^s(\R^d))$ for some $s \in \R$, then there is one and only one solution $u \in C(\R; H^s(\R^d))$ to the initial value problem
+      \[ Lu = f, \quad u|_{t=0} = g. \]
+      In addition, there is a constant $C = C(L,s)$ independent of $f, g$ so that for all $t>0$,
+      \[ \|u(t)\|_{H^s(\R^d)} \leq C e^{Ct} \|u(0)\|_{H^s(\R^d)} + \int_{0}^{t} C e^{C(t-\sigma)} \|f(\sigma)\|_{H^s(\R^d)} d \sigma ,\]
+      with a similar estimate for $t<0$.
+    \end{claim}
+
+    \begin{proof}
+      We will show uniqueness. Assume $u_1$ and $u_2$ are two solutions. Then $u_2-u_1$ satisfies
+      \[ L(u_2 - u_1) = 0, \quad (u_2-u_1)|_{t=0} = 0 .\]
+      Then by the energy estimate,
+      \begin{align*}
+	\|(u_2-u_1)(t) \|_{H^s} &\leq C e^{Ct} \|(u_2-u_1)(0)\|_{H^s} + \int_{0}^{t} C e^{C(t-\tau)} \|(L(u_2-u_1))(\tau)\|_{H^s} d\tau \\
+	&= 0
+      \end{align*}
+
+      Therefore, $u_2=u_1$.
+    \end{proof}
+
+  \item Rauch notes, from proof of local existence to semilinear initial value problem
+    \begin{claim} For $\nu \geq 2$,
+      \[ \|u^{\nu + 1} (t) - u^\nu(t) \|_{H^s(\R^d)} \leq M_1 \frac{(M_2 t)^{\nu - 1}}{(\nu - 1)!} \]
+      where $M_1 = \sup\limits_{0 \leq t \leq T} \|u^1(t) = u^2(t)\|_{H^s(\R^d)}$ and $M_2 = C \Lambda e^{CT}$.
+  \end{claim}
+  \begin{proof}
+    It has already been shown that
+    \begin{equation} \label{energy}
+      \| u^{\nu + 1}(t) - u^\nu(t) \|_{H^s} \leq C \Lambda \int_{0}^{t} e^{C (t-\tau)} \|u^\nu(\tau) - u^{\nu-1}(\tau) \|_{H^s} d\tau 
+    \end{equation}
+    for all $\nu \geq 2$ and $0 \leq t \leq T$.
+    We will prove our claim by induction. First, we assume $\nu = 2$. Then by \eqref{energy},
+    \begin{align*}
+      \| u^3(t) - u^2(t) \|_{H^s} &\leq C \Lambda \int_{0}^{t} e^{C(t-\tau)} \|u^2(\tau) - u^1(\tau) \|_{H^s} d\tau \\
+      &\leq C \Lambda M_1 \int_{0}^{t} e^{C(t-\tau)} d\tau \quad \parbox{5cm}{by definition of $M_1$} \\
+      &\leq C \Lambda M_1 \int_{0}^{t} e^{CT} d\tau \\
+      &= C \Lambda M_1 e^{CT} t \\
+      &= M_1 M_2 t
+    \end{align*}
+
+    Now we will assume $\nu \geq 2$ and the result is true for $\nu$. Then by \eqref{energy}
+    \begin{align*}
+      \|u^{\nu+2}(t) - u^{\nu+1}(t)\|_{H^s} &\leq C \Lambda \int_{0}^{t} e^{C(t-\tau)} \|u^{\nu+1}(\tau) - u^\nu(\tau) \|_{H^s} d\tau \\
+      &\leq C \Lambda \int_{0}^{t} e^{C(t-\tau)} M_1 \frac{(M_2 \tau)^{\nu-1}}{(\nu-1)!} d\tau \quad \parbox{5cm}{by our induction hypothesis} \\
+      &\leq M_1 C \Lambda e^{CT} \frac{M_2^{\nu-1}}{(\nu-1)!} \int_{0}^{t} \tau^{\nu-1} d\tau \\
+      &= M_1 M_2 \frac{M_2^{\nu-1}}{(\nu-1)!} \frac{t^\nu}{\nu} \\
+      &= M_1 \frac{(M_2 t)^{\nu}}{\nu!}
+    \end{align*}
+
+    Therefore, the result is true for all $\nu \geq 2$.
+  \end{proof}
+
+  \item Rauch notes, from proof of local existence to semilinear initial value problem
+    \begin{claim} The $u$ constructed satisfies the semilinear initial value problem
+      \[ \begin{cases}
+	L(y,\partial_y) u + F(y,u) &= f(y), \quad F(y,0) \equiv 0 \\
+	u(0,x) &= g(x) \in H^s(\R^d)
+    \end{cases} \]
+    \end{claim}
+
+    \begin{proof}
+      We already know that for all $0 \leq t \leq T$, 
+      \[ \lim_{\nu \to \infty} \| u^\nu(t) - u(t) \|_{H^s} = 0 .\]
+      By the Lipshitz statement in Schauder's Lemma, we get
+      \[ \| F(t,\cdot, u^\nu) - F(t,\cdot,u) \|_{H^s} \leq \Phi(R) \|u^\nu(t) - u(t) \|_{H^s} \]
+      for some continuous function $\Phi$ with $\Phi(0)=0$, for all $t \in [0,T]$ (we can use the same $R$ for all $t$ because $[0,T]$ is compact). By taking $\nu \to \infty$ we see
+      \[ \lim_{\nu \to \infty} \| F(t,\cdot, u^\nu) - F(t,\cdot,u) \|_{H^s} = 0.\]
+
+      Our $u^\nu$ was defined to satisfy
+      \[ L(y,\partial_y) u^\nu + F(y,u^{\nu-1}) = f(y) .\]
+      Thus by taking $\nu \to \infty$,
+      \[ L(y,\partial_y) u + F(y,u) = f(y) .\]
+
+      We also see that
+      \[ u(0,x) = g(x) \]
+      because $u^\nu(0,x) = g(x)$ for all $\nu$ and 
+      \[ \lim_{\nu \to \infty} \|u^\nu(0) - u(0)\|_{H^s} = 0.\]
+    \end{proof}
+\end{enumerate}
+\end{document}
+
+

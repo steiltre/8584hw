@@ -1,0 +1,8 @@
+# ignore .log file
+*.log
+
+# ignore .aux file
+*.aux
+
+#ignore .pdf file
+*.pdf
