@@ -95,6 +95,60 @@
     \end{claim}
 
     \begin{proof}
+      Let $U \subset \R^n$ be compact such that $\supp{u} \subset U$. Because $u$ is a weak solution of
+      \[ -\Delta u + c(u) = f ,\]
+      we know
+      \[ \sum_{i = 1}^n \int_{U}^{} u_{x_i} v_{x_i} dx = \int_{U}^{} (f - c(u)) v dx \]
+      for all $v \in H_0^1(U)$.
+
+      Let $|h| > 0$ be small, $k \in \{1,2,\dots,n\}$, and choose
+      \[ v = -D_k^{-h} (D_k^h u) ,\]
+      where $D_k^h$ is the difference quotient
+      \[ D_k^h u(x) = \frac{u(x + h e_k) - u(x)}{h} .\]
+
+      We will let
+      \[ A = \sum_{i=1}^n \int_{U}^{} u_{x_i} v_{x_i} dx \]
+      and
+      \[ B = \int_{U}^{} (f - c(u)) v dx .\]
+      First, we will look at $A$.
+      We have integration by parts and product formulas for difference quotients given as
+      \[ \int_{U}^{} v D_k^{-h} w dx = - \int_{U}^{} w D_k^h v dx ,\]
+      and
+      \[ D_k^h (vw) = v^h D_k^h w + w D_k^h v ,\]
+      where $v^h(x) := v(x + he_k)$.
+      So we have
+      \begin{align*}
+        A &= - \sum_{i=1}^n \int_{U}^{} u_{x_i} \left[ D_k^{-h} (D_k^h u) \right]_{x_i} dx \\
+        &= \sum_{i=1}^n \int_{U}^{} D_k^h u_{x_i} \left( D_k^h u \right)_{x_i} dx \quad \parbox{6cm}{NEED TO KNOW PARTIAL DERIVATIVE COMMUTES WITH
+        DIFFERENCE QUOTIENT} \\
+        &= \sum_{i=1}^n \int_{U}^{} D_k^h u_{x_i} D_k^h u_{x_i} dx \\
+        & = \| D (D_k^h u) \|_{L^2(U)}^2 \\
+        &= \| D_k^h Du \|_{L^2(U)}^2
+      \end{align*}
+
+      Now we turn to $B$.
+      By Theorem 5.8.2 in Evans,
+      \begin{align*}
+        \int_{U}^{} |v|^2 dx &= \int_{U}^{} |D_k^{-h} (D_k^h u)|^2 dx \\
+        & \leq C \int_{U}^{} |D (D_k^h u)|^2 dx \\
+        &= C \int_{U}^{} |D_k^h Du|^2 dx \quad \parbox{6cm}{NEED TO CHECK D AND $D_k^h$ COMMUTE}
+      \end{align*}
+
+      Therefore, by using Young's inequality we get that for any $\varepsilon > 0$,
+      \begin{align*}
+        |B| &= \int_{U}^{} (|f| + |c(u)|) |v| dx \\
+        &\leq \int_{U}^{} \frac{|f|^2}{2 \varepsilon} + \frac{|c(u)|^2}{2 \varepsilon} + \varepsilon |v|^2 dx \\
+        &\leq \int_{U}^{} \frac{|f|^2}{2 \varepsilon} + \frac{|c(u)|^2}{2 \varepsilon} + C\varepsilon |D_k^h Du|^2 dx
+      \end{align*}
+
+      Take $\varepsilon = \frac{1}{2C}$. Then combining $A$ and $B$, we have
+      \begin{align*}
+        \| D_k^h Du \|_{L^2(U)}^2 &= |A| \\
+        &= |B| \\
+        &\leq \int_{U}^{} C (|f|^2 + |c(u)|^2)dx + \frac{1}{2} \| D_k^h Du \|_{L^2(U)}^2
+      \end{align*}
+      Thus,
+      \[ \| D_k^h Du \|_{L^2(U)}^2 \leq 2C \int_{U}^{} |f|^2 + |c(u)|^2 dx .\]
     \end{proof}
 
   \item Evans, Chapter 6 \#8 \\
