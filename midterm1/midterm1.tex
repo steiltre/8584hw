@@ -127,7 +127,7 @@
       \end{align*}
 
       Now we turn to $B$.
-      By Theorem 5.8.2 in Evans,
+      By Theorem 3 in Section 5.8.2 of Evans,
       \begin{align*}
         \int_{U}^{} |v|^2 dx &= \int_{U}^{} |D_k^{-h} (D_k^h u)|^2 dx \\
         & \leq C \int_{U}^{} |D (D_k^h u)|^2 dx \\
@@ -153,8 +153,13 @@
       For any $x \in U$, we have
       \begin{align*}
         |c(u(x))| &= \int_{0}^{u(x)} c'(s) ds \quad \parbox{5cm}{because $c(0)=0$} \\
-        &\leq \| c' \|_{L^\infty} |u(x)|
-      \end{align*} <++>
+        &\leq \| c' \|_{L^\infty} |u(x)| \quad \parbox{6cm}{DON'T KNOW $c'$ IS BOUNDED}
+      \end{align*}
+
+      Therefore,
+      \[ \| D_k^h Du \|_{L^2(U)}^2 \leq 2C \int_{U}^{} |f|^2 + \|c'\|_{L^\infty}^2 |u|^2 dx .\]
+
+      By Theorem 3 in Section 5.8.2 of Evans, $Du \in H^1(U)$. Thus, $u \in H^2(U)$.
     \end{proof}
 
   \item Evans, Chapter 6 \#8 \\
@@ -182,6 +187,32 @@
     \end{problem}
 
       \begin{proof}
+        \begin{enumerate}
+          \item
+            Let $u$ satisfy the given Neumann problem. Multiplying $-\Delta u$ by $u$ and integrating gives
+            \begin{align*}
+              0 &= \int_{U}^{} - \Delta u u dx \\
+              &= \int_{U}^{} \nabla u \cdot \nabla u dx - \int_{\partial U}^{} u \nabla u \cdot \nu dS \\
+              &= \int_{U}^{} \nabla u \cdot \nabla u dx \quad \parbox{5cm}{because $\frac{\partial u}{\partial \nu} =0$ on $\partial U$} \\
+              &= \| \nabla u \|_{L^2(U)}^2
+            \end{align*}
+            Therefore, $\nabla u (x) = 0$ for every $x \in U$. That is, $u \equiv C$ for some constant $C$.
+
+          \item
+            Assume $u$ is not constant. By the maximum principle, there is an $x_0 \in \partial U$ such that $u(x_0) > u(x)$ for all $x \in U$ ($U$ is
+            open, so this is saying $u$ attains its maximum on the boundary but not within the interior).
+
+            Assuming we have the interior ball condition, we can take a ball $B$ such that $B \subset U$ with $x_0 \in \partial B$. By our use of the
+            maximum principle, we know $u(x_0) > u(x)$ for all $x \in U$, so we can apply Hopf's Lemma to find that
+            \[ \frac{\partial u}{\partial \tilde{\nu}} (x_0) > 0 \]
+            where $\tilde{\nu}$ is the outer unit normal to $B$.
+
+            \textbf{MUST SHOW UNIT NORMAL TO BALL IS SAME AS UNIT NORMAL TO $U$}
+
+            Therefore,
+            \[ \frac{\partial u}{\partial \nu} > 0 \]
+            where $\nu$ is the outer unit normal to $U$. This is a contradiction, so $u$ must be constant.
+        \end{enumerate}
       \end{proof}
 
   \item Renardy-Rogers, pg. 225 \#5 \\
@@ -190,6 +221,22 @@
     \end{claim}
 
     \begin{proof}
+      Take $u,v \in H^1(\R)$. By Theorem 7.18 in Renardy-Rogers (Sobolev Embedding), there is a constant C with
+      \[ \|u\|_{L^\infty} \leq C \|u\|_{H^1} \]
+      and
+      \[ \|v\|_{L^\infty} \leq C \|v\|_{H^1} .\]
+      Then we have
+      \begin{align*}
+        \|uv\|_{H^1}^2 &= \int_{\R}^{} |uv|^2 + |(uv)'|^2 dx \\
+        &\leq \int_{\R}^{} |uv|^2 + |u' v|^2 + |u v'|^2 dx \\
+        &= \int_{\R}^{} u^2 (v^2 + (v')^2) + (u')^2 v^2 dx \\
+        &\leq \int_{\R}^{} u^2 (v^2 + (v')^2) + v^2 (u^2 + (u')^2) dx \\
+        &\leq \|u\|_{L^\infty}^2 \int_{\R}^{} v^2 + (v')^2 dx + \|v\|_{L^\infty}^2 \int_{\R}^{} u^2 + (u')^2 dx \\
+        &\leq C \|u\|_{H^1}^2 \|v\|_{H^1}^2 + C \|u\|_{H^1}^2 \|v\|_{H^1}^2 \\
+        &< \infty
+      \end{align*}
+
+      Therefore $uv \in H^1(\R)$.
     \end{proof}
 
   \item Renardy-Rogers, pg. 225 \#8 \\
@@ -199,6 +246,32 @@
     \end{claim}
 
     \begin{proof}
+      First, we need to know that a weakly convergent sequence is bounded.
+      \begin{lemma} \label{weak_bdd}
+        Let $H$ be a Hilbert space. Assume $u_n \rightharpoonup u$ in $H$. Then $\{u_n\}$ is a bounded sequence.
+      \end{lemma}
+      \begin{proof}
+        Define the maps $T_n:H \to \R$ by
+        \[ T_n(v) = \la u_n, v \ra .\]
+        For any fixed $v \in H$,
+        \[ T_n(v) = \la u_n, v \ra \to \la u, v \ra \]
+        by the weak convergence. Therefore, $\{ T_n(v) \}_{n=1}^\infty$ is a bounded set of real numbers.
+        By the Uniform Boundedness Principle,
+        \[ \sup_n \|T_n\| < \infty \]
+        where the norm on $T_n$ is the operator norm.
+        But by the definition of the operator norm,
+        \[ \|T_n\| = \sup_{\|v\|=1} |T_n(v)| = \sup_{\|v\|=1} |\la u_n, v \ra| \leq \|u_n\| .\]
+        Also,
+        \[ \|T_n\| \geq \frac{T_n(u_n)}{\|u_n\|} = \\|u_n\| .\]
+        Thus, $\|T_n\| = \|u_n\|$. By our use of the Uniform Boundedness Principle, we then have
+        \[ \sup_n \|u_n\| = \sup_n\|T_n\| < \infty .\]
+        That is, $\{u_n\}$ is a bounded sequence.
+      \end{proof}
+
+      Let $u_n \rightharpoonup u$ in $H^{k+1}(\Omega)$. By Lemma \ref{weak_bdd}, $\{u_n\}$ is a bounded sequence.
+      By Theorem 7.29 in Renardy-Rogers, $H^{k+1}(\Omega)$ is compactly embedded in $H^k(\Omega)$. By definition, this means $\{u_n\}$ contains a
+      subsequence $\{u_{n_k}\}$ such that
+      \[ u_{n_k} \to u \quad \text{in } H^{k}(\Omega). \]
     \end{proof}
 
   \item Renardy-Rogers, pg. 225 \#10 \\
