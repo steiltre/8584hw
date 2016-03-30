@@ -91,7 +91,7 @@
     \begin{claim}
       Let $u \in H^1(\R^n)$ have compact support and be a weak solution of the semilinear PDE
       \[ - \Delta u + c(u) = f \quad \text{in } \R^n ,\]
-      where $f \in L^2(\R^n)$ and $c: \R \to \R$ is smooth, with $c(0) = 0$ and $c' \geq 0.$ Then $u \in H^2(\R^n)$.
+      where $f \in L^2(\R^n)$ and $c: \R \to \R$ is smooth, with $c(0) = 0, c' \geq 0$, and $c(u) \in L^2$. Then $\|D^2 u \|_{L^2} \leq C \|f\|_L^2$.
     \end{claim}
 
     \begin{proof}
@@ -119,8 +119,7 @@
       So we have
       \begin{align*}
         A &= - \sum_{i=1}^n \int_{U}^{} u_{x_i} \left[ D_k^{-h} (D_k^h u) \right]_{x_i} dx \\
-        &= \sum_{i=1}^n \int_{U}^{} D_k^h u_{x_i} \left( D_k^h u \right)_{x_i} dx \quad \parbox{6cm}{NEED TO KNOW PARTIAL DERIVATIVE COMMUTES WITH
-        DIFFERENCE QUOTIENT} \\
+        &= \sum_{i=1}^n \int_{U}^{} D_k^h u_{x_i} \left( D_k^h u \right)_{x_i} dx \quad \\
         &= \sum_{i=1}^n \int_{U}^{} D_k^h u_{x_i} D_k^h u_{x_i} dx \\
         & = \| D (D_k^h u) \|_{L^2(U)}^2 \\
         &= \| D_k^h Du \|_{L^2(U)}^2
@@ -150,16 +149,11 @@
       Thus,
       \[ \| D_k^h Du \|_{L^2(U)}^2 \leq 2C \int_{U}^{} |f|^2 + |c(u)|^2 dx .\]
 
-      For any $x \in U$, we have
-      \begin{align*}
-        |c(u(x))| &= \int_{0}^{u(x)} c'(s) ds \quad \parbox{5cm}{because $c(0)=0$} \\
-        &\leq \| c' \|_{L^\infty} |u(x)| \quad \parbox{6cm}{DON'T KNOW $c'$ IS BOUNDED}
-      \end{align*}
+      Because we know $c(u) \in L^2$, we have
+      \[ \|D_k^h Du \|_L^2(U)^2 \leq 2C \left( \|f\|_{L^2}^2 + \|c(u)\|_{L^2}^2 \right) .\]
+      Because $c(u) \in L^2$, the right hand side is a finite constant, so by Theorem 3 in Section 5.8.2 of Evans, $Du \in H^1(U)$. Therefore, $u \in
+      H^2(U)$, and $\|D^2 u\|_{L^2} \leq C' \|f\|_{L^2}$ for some constant $C'$.
 
-      Therefore,
-      \[ \| D_k^h Du \|_{L^2(U)}^2 \leq 2C \int_{U}^{} |f|^2 + \|c'\|_{L^\infty}^2 |u|^2 dx .\]
-
-      By Theorem 3 in Section 5.8.2 of Evans, $Du \in H^1(U)$. Thus, $u \in H^2(U)$.
     \end{proof}
 
   \item Evans, Chapter 6 \#8 \\
@@ -280,7 +274,26 @@
     \end{claim}
 
     \begin{proof}
-      Let $\{u_n\}$ be a bounded sequence in $H^{k+1}(\Omega)$. Let $M_R$ denote the operator of multiplication by $\chi_{ \{|\xi| < R \} }$.
+      Let $\{u_n\}$ be a bounded sequence in $H^{k+1}(\Omega)$. Let $M_R$ denote the operator of multiplication by $\chi_{ \{|\xi| < R \} }$. For $ v
+      \in H^{k+1}(\R^m)$, let ${v_R = \mathcal{F}^{-1} \left[ M_R \mathcal{F} (v) \right] }$.
+      Then
+      \begin{align*}
+        \| u - u_R \|_{H^k}^2 &= \left\| (1 + |\xi|^{2k})^{1/2} \mathcal{F} (u - u_R) \right\|_{L^2}^2 \\
+        &= \left\| (1 + |\xi|^{2k})^{1/2} ( \mathcal{F}u - M_R \mathcal{F} u ) \right\|_{L^2}^2 \\
+        &= \int_{-\infty}^{\infty} (1 + |\xi|^{2k}) ( \mathcal{F} u - M_R \mathcal{F} u)^2 d\xi \\
+        &= \int_{|\xi|>R}^{} (1 + |\xi|^{2k}) |\hat{u} (\xi)|^2 d\xi \\
+        &= \int_{|\xi|>R}^{} (1 + |\xi|^{2k}) \left| \frac{2 \pi i \xi}{2 \pi i \xi} \hat{u}(\xi) \right|^2 d\xi \\
+        &\leq \frac{1}{(2 \pi R)^2} \int_{|\xi|>R}^{} (1 + |\xi|^{2k}) | \widehat{u'} (\xi) |^2 d \xi \\
+        &= \frac{1}{(2 \pi R)^2} \|u'\|_{H^k}^2 \\
+        &\leq \frac{1}{(2 \pi R)^2} \|u\|_{H^{k+1}}^2
+      \end{align*}
+
+      Therefore,
+      \[ \|u - u_R\|_{H^k} \leq \frac{C}{R} \|u\|_{H^{k+1}} ,\]
+      for some constant $C$.
+
+      Moreover, for any fixed $R$ and any positive integer $l$, we have $u_R \in C^l(\R^m)$ and there is a constant $C(R,l)$ such that
+      \[ \|u_R\|_{W^{l,\infty}} \leq C(R,l) \|u\|_{H^{k+1}} .\]
     \end{proof}
 
 \end{enumerate}
