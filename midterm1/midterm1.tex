@@ -167,6 +167,79 @@
     \end{claim}
 
     \begin{proof}
+      We have $|Du|^2 = \sum_{k=1}^n u_{x_k}^2$. Therefore, we can compute
+      \[ \left( |Du|^2 \right)_{x_i} = 2 \sum_{k=1}^n u_{x_k} u_{x_k x_i} \]
+      and
+      \[ \left( |Du|^2 \right)_{x_i x_j} = 2 \sum_{k=1}^n u_{x_k x_j} u_{x_k x_i} + 2 \sum_{k=1}^n u_{x_k} u_{x_k x_i x_j} .\]
+      More simply, we have
+      \[ (u^2)_{x_i} = 2 u u_{x_i} \]
+      and
+      \[ (u^2)_{x_i x_j} = 2 u_{x_j} u_{x_i} + 2 u u_{x_i x_j} .\]
+      Plugging these in, we get
+      \begin{align*}
+        Lv &= - \sum_{i,j=1}^n a^{ij}(x) v_{x_i x_j} \\
+        &= - 2 \sum_{i,j,k=1}^n a^{ij} u_{x_k x_j} u_{x_k x_i} - 2 \sum_{i,j,k=1}^n a^{ij} u_{x_k} u_{x_k x_i x_j} - 2 \lambda \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j}
+        - 2 \lambda \sum_{i,j=1}^n a^{ij} u u_{x_i x_j} \\
+        &= - 2 \sum_{i,j,k=1}^n a^{ij} u_{x_k x_j} u_{x_k x_i} - 2 \sum_{i,j,i=1}^n a^{ij} u_{x_k} u_{x_k x_i x_j} - 2 \lambda \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j}
+      \end{align*}
+      where we have used the fact that $Lu = 0$.
+
+      We know for any $k$,
+      \begin{align*}
+        0 &= \frac{\partial}{\partial x_k} (Lu) \\
+        &= \sum_{i,j=1}^n a^{ij}_{x_k} u_{x_i x_j} + \sum_{i,j=1}^n a^{ij} u_{x_i x_j x_k}
+      \end{align*}
+      Therefore, we can rewrite
+      \[ Lv = -2 \sum_{i,j,k=1}^n a^{ij} u_{x_k x_j} u_{x_k x_i} + 2 \sum_{i,j,k=1}^n a^{ij}_{x_k} u_{x_k} u_{x_i x_j} - 2 \lambda \sum_{i,j=1}^n
+      a^{ij} u_{x_i} u_{x_j} .\]
+
+      For any fixed $k$, we have
+      \begin{align*}
+        \sum_{i,j=1}^n a^{ij} u_{x_k x_j} u_{x_k x_i} &= \sum_{i,j=1}^n a^{ij} (u_{x_k})_{x_j} (u_{x_k})_{x_i} \\
+        &\geq \theta |D(u_{x_k})|^2 \quad \parbox{5cm}{by uniform ellipticity}
+      \end{align*}
+      for some $\theta > 0$.
+
+      Also, by uniform ellipticity,
+      \[ \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} \geq \theta |Du|^2 .\]
+
+      By the uniform ellipticity and boundedness of derivatives of $a^{ij}$, we have
+      \[ Lv \leq -2 \theta |D^2 u|^2 + A \sum_{i,j,k=1}^n u_{x_k} u_{x_i x_j} - 2 \theta \lambda |Du|^2 \]
+      for some constant $A$. By Young's Inequality,
+      \[ u_{x_k} u_{x_i x_j} \leq \frac{1}{2} u_{x_k}^2 + \frac{1}{2} u_{x_i x_j}^2 .\]
+      Therefore, we get
+      \begin{align*}
+        Lv &\leq -2 \theta |D^2u|^2 + \frac{A n^2}{2} |Du|^2 + \frac{A n}{2} |D^2 u|^2 - 2\theta \lambda |Du|^2 \\
+        &= \left( \frac{A n}{2} - 2 \theta \right) |D^2 u|^2 + \left(\frac{A n^2}{2} - 2 \theta \lambda \right) |Du|^2
+      \end{align*}
+      From here, we can pick $\lambda$ large enough to guarantee $Lv \leq 0$.
+
+      By the maximum principle, we know
+      \[ \| u \|_{L^\infty(U)} \leq \| u \|_{L^\infty(\partial U)} \]
+      and
+      \[ \left\| |Du|^2 + \lambda u^2 \right\|_{L^\infty(U)} = \| v \|_{L^\infty(U)} \leq \| v \|_{L^\infty(\partial U)} = \left\| |Du|^2 + \lambda u^2
+      \right\|_{L^\infty(\partial U)} .\]
+
+      By the triangle inequality,
+      \[ \left\| |Du|^2 \right\|_{L^\infty(U)} \leq \left\| |Du|^2 + \lambda u^2 \right\|_{L^\infty(U)} + \lambda \| u^2 \|_{L^\infty(U)} .\]
+      Therefore,
+      \begin{align*}
+        \left\| |Du|^2 \right\|_{L^\infty(U)} - \lambda \|u^2\|_{L^\infty(U)}
+        &\leq \left\| |Du|^2 + \lambda u^2 \right\|_{L^\infty(U)} \\
+        &\leq \left\| |Du|^2 + \lambda u^2 \right\|_{L^\infty(\partial U)} \\
+        &\leq \left\| |Du|^2 \right\|_{L^\infty(\partial U)} + \lambda \|u^2\|_{L^\infty(\partial U)}
+      \end{align*}
+
+      Adding $\lambda \|u^2\|_{L^\infty(U)}$ to both sides and using the maximum principle gives
+      \begin{align*}
+        \left\| |Du|^2 \right\|_{L^\infty(U)} &\leq \left\| |Du|^2 \right\|_{L^\infty(\partial U)} + 2\lambda \|u^2\|_{L^\infty(\partial U)} \\
+        &\leq \left( \left\| Du \right\|_{L^\infty(\partial U)} + \sqrt{2 \lambda} \|u\|_{L^\infty(\partial U)} \right)^2
+      \end{align*}
+
+      Taking square roots gives
+      \[ \| Du \|_{L^\infty(U)} \leq C \left( \| Du \|_{L^\infty(\partial U)} + \|u\|_{L^\infty(\partial U)} \right) \]
+      with $C = \max \{1, \sqrt{2 \lambda} \}$.
+
     \end{proof}
 
   \item Evans, Chapter 6 \#10 \\
@@ -274,11 +347,11 @@
     \end{claim}
 
     \begin{proof}
-      Let $\{u_n\}$ be a bounded sequence in $H^{k+1}(\Omega)$. Let $M_R$ denote the operator of multiplication by $\chi_{ \{|\xi| < R \} }$. For $ v
-      \in H^{k+1}(\R^m)$, let ${v_R = \mathcal{F}^{-1} \left[ M_R \mathcal{F} (v) \right] }$.
+      Let $\{u_n\}$ be a bounded sequence in $H^{k+1}_0(\Omega)$. Let $M_R$ denote the operator of multiplication by $\chi_{ \{|\xi| < R \} }$. For $ v
+      \in H^{k+1}(\R^m)$, let ${v^R = \mathcal{F}^{-1} \left[ M_R \mathcal{F} (v) \right] }$.
       Then
       \begin{align*}
-        \| u - u_R \|_{H^k}^2 &= \left\| (1 + |\xi|^{2k})^{1/2} \mathcal{F} (u - u_R) \right\|_{L^2}^2 \\
+        \| u - u^R \|_{H^k}^2 &= \left\| (1 + |\xi|^{2k})^{1/2} \mathcal{F} (u - u^R) \right\|_{L^2}^2 \\
         &= \left\| (1 + |\xi|^{2k})^{1/2} ( \mathcal{F}u - M_R \mathcal{F} u ) \right\|_{L^2}^2 \\
         &= \int_{-\infty}^{\infty} (1 + |\xi|^{2k}) ( \mathcal{F} u - M_R \mathcal{F} u)^2 d\xi \\
         &= \int_{|\xi|>R}^{} (1 + |\xi|^{2k}) |\hat{u} (\xi)|^2 d\xi \\
@@ -289,11 +362,23 @@
       \end{align*}
 
       Therefore,
-      \[ \|u - u_R\|_{H^k} \leq \frac{C}{R} \|u\|_{H^{k+1}} ,\]
+      \begin{equation} \label{cutoff_bound}
+        \|u - u^R\|_{H^k} \leq \frac{C}{R} \|u\|_{H^{k+1}} ,
+      \end{equation}
       for some constant $C$.
 
-      Moreover, for any fixed $R$ and any positive integer $l$, we have $u_R \in C^l(\R^m)$ and there is a constant $C(R,l)$ such that
-      \[ \|u_R\|_{W^{l,\infty}} \leq C(R,l) \|u\|_{H^{k+1}} .\]
+      Moreover, for any fixed $R$ and any positive integer $l$, we have $u^R \in C^l(\R^m)$ and there is a constant $C(R,l)$ such that
+      \[ \|u^R\|_{W^{l,\infty}} \leq C(R,l) \|u\|_{H^{k+1}} .\]
+      Therefore, for any fixed $R, \{u^R_n\}_n$ is a uniformly bounded sequence which is equicontinuous (derivatives are bounded).
+      By Arzela-Ascoli, $\{u^R_n\}_n$ has a subsequence that converges in $C^k(\Omega)$ and therefore in $H^k(\Omega)$. For convenience, we shall
+      denote the subsequence as $\{u_n^R\}_n$ as well.
+      Now, choose a sequence of radii $\{R_k\}_k$ with $R_k \to \infty$.
+      By choosing the sequence $\{u_n^{R_n} \}_n$, we get a sequence that converges in $H^k(\Omega)$.
+
+      By \eqref{cutoff_bound}, we have
+      \[ \| u_n - u_n^{R_n} \|_{H^k} \leq \frac{C}{R_n} \|u_n\|_{H^{k+1}} .\]
+      The right hand side above approaches 0 as $n \to \infty$ because $\{u_n\}$ is a bounded sequence in $H^{k+1}_0(\Omega)$. Therefore, $u_n$
+      converges in $H^k(\Omega)$.
     \end{proof}
 
 \end{enumerate}
