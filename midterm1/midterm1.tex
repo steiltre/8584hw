@@ -46,6 +46,24 @@
     \end{problem}
 
     \begin{solution}
+      Let $u(x) = x^{- \ln x}$. Then
+      \begin{align*}
+        u(x) e^{a |x|^a} &= e^{-(\ln x)^2} e^{a |x|^a} \\
+        &= e^{a |x|^a - (\ln x)^2}
+      \end{align*}
+      We would like to show the $a |x|^a - (\ln x)^2 \to \infty$ as $x \to \infty$ in order to show $u e^{a |x|^a} \not\in L^\infty(\R)$.
+      To do this, we make the substitution $x = e^t$ to get
+      \begin{align*}
+        \lim_{x \to \infty} a |x|^a - (\ln x)^2 &= \lim_{t \to \infty} a e^{ta} - t^2 \\
+        &= \infty
+      \end{align*}
+      for any value of $a$. Therefore,
+      \begin{align*}
+        \lim_{x \to \infty} u(x) e^{a |x|^a} &= \lim_{x \to \infty} e^{a |x|^a - (\ln x)^2} \\
+        &= e^{ \lim_{x \to \infty}  a|x|^a - (\ln x)^2} \\
+        &= \infty
+      \end{align*}
+      Thus, $u(x) e^{a|x|^a} \not\in L^{\infty}(R)$ for any value of $a$, and $u(x)$ is therefore subexponential. Now we must show $u$ is Schwartz.
     \end{solution}
 
   \item
