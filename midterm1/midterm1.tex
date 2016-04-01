@@ -75,11 +75,18 @@
       Then
       \begin{align*}
         \lim_{x \to \infty} x^k u'(x) &= - \lim_{x \to \infty} 2 x^{-\ln x + k -1} \ln x \\
-        &= -2 \lim_{x \to \infty} \frac{\ln x}{x^{\ln x - k + 1}} \\
-        &= -2 \lim_{x \to \infty} \frac{1/x}{x^{\ln x - k}( 2\ln x - k+1)} \quad \parbox{5cm}{by L'Hopital's Rule} \\
-        &= -2 \lim_{x \to \infty} \frac{1}{x^{\ln x - k + 1} (2 \ln x - k+1)} \parbox{5cm}{\textbf{NEED TO FINISH CALCULATION}}\\
+        &= -2 \lim_{x \to \infty} e^{- (\ln x)^2 + (k -1)\ln x} e^{\ln(\ln x)} \\
+        &= -2 \lim_{x \to \infty} e^{-(\ln x)^2 + (k-1) \ln x + \ln( \ln x)}
+      \end{align*}
+
+      To complete this computation, we make the substitution $y = \ln x$. Then
+      \begin{align*}
+        \lim_{x \to \infty} x^k u'(x) &= -2 \lim_{y \to \infty} e^{-y^2 + (k-1)y + \ln y} \\
+        &= -2 \lim_{y \to \infty} y e^{-y^2 + (k-1)y} \\
         &= 0
-      \end{align*}<++>
+      \end{align*}
+
+      Taking further derivatives, similar calculations show $u(x) \in S(R)$.
     \end{solution}
 
   \item
