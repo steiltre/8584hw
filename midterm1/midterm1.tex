@@ -109,8 +109,7 @@
       where $\eta$ is the unit outer normal to $B_r(x)$. Now we introduce the change of variables $z = x+ry$. Then we have
       \[ \int_{\partial B_r(x)}^{} \frac{\partial u}{\partial \eta}(z) d \sigma(z) = r^{n-1} \int_{B_1(0)}^{} \frac{\partial u}{\partial r} d
       \sigma(y) .\]
-      The region we are integrating over no longer depends on $r$, so we can move the derivative outside to get
-      \textbf{JUSTIFY INTERCHANGE OF DERIVATIVE AND INTEGRAL BETTER}
+      Because, $u$ is smooth and we are integrating over a bounded, fixed domain, we can interchange the derivative and integral to get
       \[ \int_{\partial B_r(x)}^{} \frac{\partial u}{\partial \eta}(z) d \sigma(z) = r^{n-1} \frac{\partial}{\partial r} \int_{\partial B_1(0)}^{}
       u d \sigma .\]
 
@@ -127,31 +126,38 @@
         &= \frac{n}{r} \frac{\partial}{\partial r} \fint_{\partial B_r(x)}^{} u d\sigma
       \end{align*}
 
-      \textbf{WORK BELOW HERE IS WRONG}
       Now we will define,
       \[ \varphi(r) = \fint_{\partial B_r(x)}^{} u d \sigma .\]
       Because $u$ is continuous, we can define
       \[ \varphi(0) = \lim_{r \to 0^+} \varphi(r) = u(x) \]
       using Lebesgue differentiation. Then
       \begin{align*}
-        2 \frac{\varphi(r) - \varphi(0)}{r} \to \varphi'(r/2)
+        \lim_{r \to 0^+} \frac{n}{r} \varphi(r)
+        &= \lim_{r \to 0^+} \frac{n}{r} \lim_{h \to 0} \frac{\varphi(r) - \varphi(r-h)}{h} \\
+        &= \lim_{r \to 0^+} \lim_{h \to 0} \frac{n}{rh} \left( \varphi(r) - \varphi(r-h) \right) \\
+        &= \lim_{r \to 0^+} \frac{n}{r^2} \left( \varphi(r) - \varphi(0) \right) \quad \parbox{5cm}{if we can set $r = h$}
       \end{align*}
-      Therefore,
-      \begin{align*}
-        \lim_{r \to 0^+} 2 \frac{\varphi(r) - \varphi(0)}{r} &= \lim_{r \to 0^+} \varphi'(r/2) \\
-        &= \lim_{r \to 0^+} \varphi(r)
-      \end{align*}
-
-      This gives us
-      \[ \lim_{r \to 0^+} \frac{n}{r} \frac{\partial}{\partial r} \fint_{\partial B_r(x)}^{} u d \sigma = \lim_{r \to 0^+} \frac{2n}{r^2} \left[ \fint_{\partial B_r(x)}^{} u
-      d\sigma - u(x) \right] \]
 
       Combining this with the previous work, we have
       \begin{align*}
         \Delta u(x) &= \lim_{r \to 0^+} \fint_{B_r(x)}^{} \Delta u dx \\
         &= \lim_{r \to 0^+} \frac{n}{r} \frac{\partial}{\partial r} \fint_{\partial B_r(x)}^{} u d \sigma \\
-        &= \lim_{r \to 0^+} \frac{2n}{r^2} \left[ \fint_{\partial B_r(x)}^{} u d\sigma - u(x) \right]
+        &= \lim_{r \to 0^+} \frac{n}{r^2} \left[ \fint_{\partial B_r(x)}^{} u d\sigma - u(x) \right]
       \end{align*}
+
+      Notice what we have is missing the ``2'' in the numerator. We can check that this 2 is necessary and must have been missed in my work by looking
+      at the case $n=1$. For $u: \R \to \R$, our spherical averages are easy to compute and
+      \[ \fint_{\partial B_r(x)}^{} u d \sigma = \frac{1}{2} ( u(x+r) + u(x-r) ) \]
+      because the boundary of our sphere is a pair of points, so we are averaging $u$ evaluated at two points.
+      Therefore,
+      \begin{align*}
+        \lim_{r \to 0^+} \frac{2}{r^2} \left[ \fint_{\partial B_r(x)}^{} u d\sigma - u(x) \right]
+        &= \lim_{r \to 0^+} \frac{2}{r^2} \left[ \frac{1}{2} \left( u(x+r) + u(x-r) \right) - u(x) \right] \\
+        &= \lim_{r \to 0^+} \frac{u(x-r) - 2u(x) + u(x+r)}{r^2} \\
+        &= u''(x)
+      \end{align*}
+      using the fact that we have a finite difference approximation for the second derivative. Thus we see that the 2 is necessary, and there must be
+      a mistake in my work.
 
     \end{solution}
 
