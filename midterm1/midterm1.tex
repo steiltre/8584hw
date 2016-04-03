@@ -127,6 +127,32 @@
         &= \frac{n}{r} \frac{\partial}{\partial r} \fint_{\partial B_r(x)}^{} u d\sigma
       \end{align*}
 
+      \textbf{WORK BELOW HERE IS WRONG}
+      Now we will define,
+      \[ \varphi(r) = \fint_{\partial B_r(x)}^{} u d \sigma .\]
+      Because $u$ is continuous, we can define
+      \[ \varphi(0) = \lim_{r \to 0^+} \varphi(r) = u(x) \]
+      using Lebesgue differentiation. Then
+      \begin{align*}
+        2 \frac{\varphi(r) - \varphi(0)}{r} \to \varphi'(r/2)
+      \end{align*}
+      Therefore,
+      \begin{align*}
+        \lim_{r \to 0^+} 2 \frac{\varphi(r) - \varphi(0)}{r} &= \lim_{r \to 0^+} \varphi'(r/2) \\
+        &= \lim_{r \to 0^+} \varphi(r)
+      \end{align*}
+
+      This gives us
+      \[ \lim_{r \to 0^+} \frac{n}{r} \frac{\partial}{\partial r} \fint_{\partial B_r(x)}^{} u d \sigma = \lim_{r \to 0^+} \frac{2n}{r^2} \left[ \fint_{\partial B_r(x)}^{} u
+      d\sigma - u(x) \right] \]
+
+      Combining this with the previous work, we have
+      \begin{align*}
+        \Delta u(x) &= \lim_{r \to 0^+} \fint_{B_r(x)}^{} \Delta u dx \\
+        &= \lim_{r \to 0^+} \frac{n}{r} \frac{\partial}{\partial r} \fint_{\partial B_r(x)}^{} u d \sigma \\
+        &= \lim_{r \to 0^+} \frac{2n}{r^2} \left[ \fint_{\partial B_r(x)}^{} u d\sigma - u(x) \right]
+      \end{align*}
+
     \end{solution}
 
   \item Evans, Chapter 6 \#7 \\
