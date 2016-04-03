@@ -67,6 +67,8 @@
       Take $k > 0$. Then
       \begin{align*}
         \lim_{x \to \infty} x^k u(x) &= \lim_{x \to \infty} x^{k - \ln x} \\
+        &= \lim_{x \to \infty} e^{ \ln x^{k - \ln x}} \\
+        &= \lim_{x \to \infty} e^{ \ln x (k - \ln x)} \\
         &= 0
       \end{align*}
 
@@ -74,7 +76,7 @@
       \[ u'(x) = -2 x^{-\ln x - 1} \ln x.\]
       Then
       \begin{align*}
-        \lim_{x \to \infty} x^k u'(x) &= - \lim_{x \to \infty} 2 x^{-\ln x + k -1} \ln x \\
+        \lim_{x \to \infty} x^k u'(x) &= -2 \lim_{x \to \infty} x^{-\ln x + k -1} \ln x \\
         &= -2 \lim_{x \to \infty} e^{- (\ln x)^2 + (k -1)\ln x} e^{\ln(\ln x)} \\
         &= -2 \lim_{x \to \infty} e^{-(\ln x)^2 + (k-1) \ln x + \ln( \ln x)}
       \end{align*}
@@ -94,7 +96,7 @@
       Justify the following inequalities from Hunter's notes for a smooth function $u$ on $\R^n$:
       \begin{align*}
         \Delta u(x) &= \lim_{r \to 0^+} \fint_{B_r(x)} \Delta u dx \\
-        &= \lim_{r \to 0^+} \fint_{\partial B_r(x)}^{} u(y) d\sigma(y) \\
+        &= \lim_{r \to 0^+} \frac{n}{r} \frac{\partial}{\partial r} \fint_{\partial B_r(x)}^{} u(y) d\sigma(y) \\
         &= \lim_{r \to 0^+} \frac{2n}{r^2} \left[ \fint_{\partial B_r(x)}^{} u(y) d\sigma(y) - u(x) \right]
       \end{align*}
 
@@ -198,13 +200,14 @@
         & = \| D (D_k^h u) \|_{L^2(U)}^2 \\
         &= \| D_k^h Du \|_{L^2(U)}^2
       \end{align*}
+      where we have used the fact that difference quotients commute with derivatives.
 
       Now we turn to $B$.
       By Theorem 3 in Section 5.8.2 of Evans,
       \begin{align*}
         \int_{U}^{} |v|^2 dx &= \int_{U}^{} |D_k^{-h} (D_k^h u)|^2 dx \\
         & \leq C \int_{U}^{} |D (D_k^h u)|^2 dx \\
-        &= C \int_{U}^{} |D_k^h Du|^2 dx \quad \parbox{6cm}{NEED TO CHECK D AND $D_k^h$ COMMUTE}
+        &= C \int_{U}^{} |D_k^h Du|^2 dx
       \end{align*}
 
       Therefore, by using Young's inequality we get that for any $\varepsilon > 0$,
@@ -224,7 +227,7 @@
       \[ \| D_k^h Du \|_{L^2(U)}^2 \leq 2C \int_{U}^{} |f|^2 + |c(u)|^2 dx .\]
 
       Because we know $c(u) \in L^2$, we have
-      \[ \|D_k^h Du \|_L^2(U)^2 \leq 2C \left( \|f\|_{L^2}^2 + \|c(u)\|_{L^2}^2 \right) .\]
+      \[ \|D_k^h Du \|_{L^2(U)}^2 \leq 2C \left( \|f\|_{L^2}^2 + \|c(u)\|_{L^2}^2 \right) .\]
       Because $c(u) \in L^2$, the right hand side is a finite constant, so by Theorem 3 in Section 5.8.2 of Evans, $Du \in H^1(U)$. Therefore, $u \in
       H^2(U)$, and $\|D^2 u\|_{L^2} \leq C' \|f\|_{L^2}$ for some constant $C'$.
 
@@ -337,7 +340,7 @@
               &= \int_{U}^{} \nabla u \cdot \nabla u dx \quad \parbox{5cm}{because $\frac{\partial u}{\partial \nu} =0$ on $\partial U$} \\
               &= \| \nabla u \|_{L^2(U)}^2
             \end{align*}
-            Therefore, $\nabla u (x) = 0$ for every $x \in U$. That is, $u \equiv C$ for some constant $C$.
+            Therefore, $\nabla u (x) = 0$ for every $x \in U$. Because $U$ is connected, $u \equiv C$ for some constant $C$.
 
           \item
             Assume $u$ is not constant. By the maximum principle, there is an $x_0 \in \partial U$ such that $u(x_0) > u(x)$ for all $x \in U$ ($U$ is
@@ -348,8 +351,7 @@
             \[ \frac{\partial u}{\partial \tilde{\nu}} (x_0) > 0 \]
             where $\tilde{\nu}$ is the outer unit normal to $B$.
 
-            \textbf{MUST SHOW UNIT NORMAL TO BALL IS SAME AS UNIT NORMAL TO $U$}
-
+            The unit normal to the ball must be the same as the unit normal to $U$.
             Therefore,
             \[ \frac{\partial u}{\partial \nu} > 0 \]
             where $\nu$ is the outer unit normal to $U$. This is a contradiction, so $u$ must be constant.
@@ -395,7 +397,7 @@
         Define the maps $T_n:H \to \R$ by
         \[ T_n(v) = \la u_n, v \ra .\]
         For any fixed $v \in H$,
-        \[ T_n(v) = \la u_n, v \ra \to \la u, v \ra \]
+        \[ T_n(v) = \la u_n, v \ra \to \la u, v \ra  \quad \text{as } n \to \infty \]
         by the weak convergence. Therefore, $\{ T_n(v) \}_{n=1}^\infty$ is a bounded set of real numbers.
         By the Uniform Boundedness Principle,
         \[ \sup_n \|T_n\| < \infty \]
@@ -403,7 +405,7 @@
         But by the definition of the operator norm,
         \[ \|T_n\| = \sup_{\|v\|=1} |T_n(v)| = \sup_{\|v\|=1} |\la u_n, v \ra| \leq \|u_n\| .\]
         Also,
-        \[ \|T_n\| \geq \frac{T_n(u_n)}{\|u_n\|} = \\|u_n\| .\]
+        \[ \|T_n\| \geq \frac{T_n(u_n)}{\|u_n\|} = \|u_n\| .\]
         Thus, $\|T_n\| = \|u_n\|$. By our use of the Uniform Boundedness Principle, we then have
         \[ \sup_n \|u_n\| = \sup_n\|T_n\| < \infty .\]
         That is, $\{u_n\}$ is a bounded sequence.
