@@ -1,0 +1,136 @@
+%        File: hw3.tex
+%     Created: Sun Apr 10 07:00 PM 2016 C
+% Last Change: Sun Apr 10 07:00 PM 2016 C
+%
+
+\documentclass[a4paper]{article}
+
+\title{Math 8584 Homework 3 }
+\date{4/18/16}
+\author{Trevor Steil}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem*{claim}{Claim}
+\newtheorem*{problem}{Problem}
+%\newtheorem*{lemma}{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\supp}[1]{\mathop{\mathrm{supp}}\left(#1\right)}
+\newcommand{\lip}[1]{\mathop{\mathrm{Lip}}\left(#1\right)}
+\newcommand{\curl}{\mathrm{curl}}
+\newcommand{\la}{\left \langle}
+\newcommand{\ra}{\right \rangle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newenvironment{solution}{\emph{Solution.}}
+
+\begin{document}
+\maketitle
+\begin{enumerate}
+  \item Jost, pg 91 Formula 5.1.15
+    \begin{claim}
+      Let $u: \R^d \times \R \to \R$ satisfy
+      \begin{equation*}
+        u_t = \Delta u.
+      \end{equation*}
+      Then
+      \[ u(y,T) = \mu \int_{\partial M(y, T; \mu)}^{} u(x,t) \frac{|x-y|}{2(T-t)} d \sigma \]
+      where
+      \[ M(y,T; \mu) = \left\{ (x,s) \in \R^d \times \R, s \leq T : \frac{1}{(4 \pi (T-s))^{d/2}} e^{-\frac{|x-y|^2}{4(T-s)} } \geq \mu \right\} .\]
+    \end{claim}
+
+    \begin{proof}
+    \end{proof}
+
+  \item Jost 5.1
+    \begin{claim}
+      Let $\Omega \subset \R^d$ be bounded, $\Omega_T = \Omega \times (0,T)$. Let
+      \[ L = \sum_{i,j=1}^d a^{ij}(x,t) \frac{\partial^2}{\partial x^i \partial x^j} + \sum_{i=1}^d b^i(x,t) \frac{\partial}{\partial x^i} .\]
+      be elliptic for all $(x,t) \in \Omega_T$, and suppose
+      \[ u_t \leq Lu, \]
+      where $u \in C^0(\overline{\Omega_T})$ is twice continuously differentiable with respect to $x \in \Omega$ and once with respect to $t \in
+      (0,T)$. Then
+      \[ \sup_{\Omega_T} u = \sup_{\partial^\ast \Omega_T} u. \]
+    \end{claim}
+
+    \begin{proof}
+    \end{proof}
+
+  \item Jost 5.4
+    \begin{claim}
+      Let $\Sigma$ be the grid consistiing of the points $(x,t)$ with $x = nh, t = mk, n,m \in \Z, m \geq 0$, and let $v$ be the solution of the
+      discrete heat equation
+      \[ \frac{v(x,t+k) - v(x,t)}{k} - \frac{v(x+h,t) - 2v(x,t) + v(x-h,t)}{h^2} = 0 \]
+      with $v(x,0) = f(x) \in C^0(\R)$.
+      Then for $\frac{k}{h^2} = \frac{1}{2}$,
+      \[ v(nh, mk) = 2^{-m} \sum_{j=0}^m \binom{m}{j} f \left( (n - m + 2j)h \right) .\]
+      Also,
+      \[ \sup_{\Sigma} |v| \leq \sup_\R |f|. \]
+    \end{claim}
+
+    \begin{proof}
+    \end{proof}
+
+  \item Evans pg 87 \#12
+    \begin{claim}
+      Suppose $u$ is smooth and solves $u_t - \Delta u = 0$ in $\R^n \times (0,\infty)$. Then
+      \begin{enumerate}
+        \item $u_\lambda(x,t) = u(\lambda x, \lambda^2 t)$ also solves the heat equation for each $\lambda \in \R$.
+
+        \item $v(x,t) = x \cdot Du(x,t) + 2t u_t(x,t)$ solves the heat equation as well.
+      \end{enumerate}
+
+    \end{claim}
+
+    \begin{proof}
+      \begin{enumerate}
+        \item
+
+        \item
+      \end{enumerate}
+    \end{proof}
+
+  \item Evans pg 87 \#13
+    \begin{problem}
+      Assume $n = 1$ and $u(x,t) = v\left( \frac{x}{\sqrt{t}} \right)$.
+      \begin{enumerate}
+        \item Show
+          \[ u_t = u_{xx} \]
+          if and only if
+          \begin{equation} \label{eq:ODE}
+            v'' + \frac{z}{2} v' = 0
+          \end{equation}
+
+          Also, show that the general solution of \eqref{eq:ODE} is
+          \[ v(z) = c \int_{0}^{z} e^{-s^2/4} ds + d .\]
+
+        \item
+          Differentiate $u(x,t) = v\left( \frac{x}{\sqrt{t}} \right)$ with respect to $x$ and select the constant $c$ properly, to obtain the
+          fundamental solution $\Phi$ for $n = 1$. Explain why this procedure produces the fundamental solution.
+
+      \end{enumerate}
+
+    \end{problem}
+
+    \begin{solution}
+      \begin{enumerate}
+        \item
+
+        \item
+      \end{enumerate}
+    \end{solution}
+\end{enumerate}
+\end{document}
+
+
