@@ -69,7 +69,7 @@
 
   \item Jost 5.4
     \begin{claim}
-      Let $\Sigma$ be the grid consistiing of the points $(x,t)$ with $x = nh, t = mk, n,m \in \Z, m \geq 0$, and let $v$ be the solution of the
+      Let $\Sigma$ be the grid consisting of the points $(x,t)$ with $x = nh, t = mk, n,m \in \Z, m \geq 0$, and let $v$ be the solution of the
       discrete heat equation
       \[ \frac{v(x,t+k) - v(x,t)}{k} - \frac{v(x+h,t) - 2v(x,t) + v(x-h,t)}{h^2} = 0 \]
       with $v(x,0) = f(x) \in C^0(\R)$.
@@ -96,8 +96,31 @@
     \begin{proof}
       \begin{enumerate}
         \item
+          A simple calculation shows
+          \begin{align*}
+            \partial_t u_\lambda + \Delta u_\lambda &= \lambda^2 u_t + \lambda^2 \Delta u \\
+            &= \lambda^2 (u_t + \Delta u) \\
+            &= 0
+          \end{align*}
 
         \item
+          By part (a), we know $u_\lambda(x,t) = u(\lambda x, \lambda^2 t)$ satisfies the heat equation.
+          Write
+          \[ u_\lambda(x, t) = u( \lambda x_1, \dots, \lambda x_n, \lambda^2 t) .\]
+          Taking the derivative with respect to $\lambda$ gives
+          \begin{align*}
+            \partial_\lambda u_\lambda &= x_1 \partial_{x_1} u + \dots + \partial_{x_n} u + 2 \lambda t \partial_t u \\
+            &= x \cdot Du + 2 \lambda t u_t
+          \end{align*}
+          By choosing $\lambda = 1$, we get $v$.
+          By assumption, $u$ is smooth, so our partial derivatives commute. Therefore,
+          \begin{align*}
+            v_t - \Delta v &= \partial_t ( \partial_\lambda u_\lambda |_{\lambda=1} ) - \Delta ( \partial_\lambda u_\lambda |_{\lambda=1} ) \\
+            &= \partial_\lambda (\partial_t u_\lambda ) |_{\lambda=1} + \partial_\lambda (\Delta u_\lambda) |_{\lambda=1} \\
+            &= \partial_\lambda (\partial_t u_\lambda + \Delta u_\lambda ) |_{\lambda=1} \\
+            &= 0
+          \end{align*}
+          because $u_\lambda$ solves the heat equation. Thus, $v$ solves the heat equation as well.
       \end{enumerate}
     \end{proof}
 
