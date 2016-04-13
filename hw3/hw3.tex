@@ -51,6 +51,15 @@
     \end{claim}
 
     \begin{proof}
+      We define
+      \[ \Lambda(x,y,t,t_0) = \frac{1}{(4 \pi |t-t_0|)^{d/2}} e^{\frac{|x-y|^2}{4(t_0 - t)} } .\]
+      Because $u$ satisfies the heat equation, we have
+      \begin{align*}
+        0 &= \iint_{M(y,T;\mu)}^{} ( \Lambda(x,y,T+\varepsilon,t) - \mu) (u_t (x,t) - \Delta u(x,t)) dx dt \\
+        &= \iint_{M(y,T;\mu)}^{} ( \Lambda(x,y,T+\varepsilon,t) - \mu ) u_t(x,t) dt dx
+        - \iint_{M(y,T,\mu)}^{} ( \Lambda(x,y,T+\varepsilon,t) - \mu ) \Delta u(x,t) dx dt \\
+        &=
+      \end{align*}<++>
     \end{proof}
 
   \item Jost 5.1
