@@ -74,11 +74,69 @@
     \end{claim}
 
     \begin{proof}
+      Without loss of generality, we may assume $a^{ij} = a^{ji}$. Because $u$ is twice continuously differentiable in space, $u_{x_i x_j} = u_{x_j
+      x_i}$. Therefore,
+      \begin{align*}
+        a^{ij} u_{x_i x_j} + a^{ji} u_{x_j x_i} &= (a^{ij} + a^{ji}) u_{x_i x_j} \\
+        &= \frac{1}{2} (a^{ij} + a^{ji}) u_{x_i x_j} + \frac{1}{2} (a^{ij} + a^{ji}) u_{x_j x_i}
+      \end{align*}
+      So we can replace $a^{ij}$ and $a^{ji}$ with $\frac{1}{2} (a^{ij} + a^{ji})$.
+
       Assume $T < \infty$ and $u_t - Lu < 0$ in $\Omega_T$.
       Fix $0<\varepsilon<T$. Suppose we have $(x_0,t_0) \in \overline{\Omega}_{T-\varepsilon}$ such that
       \[ \max_{\overline{\Omega}_{T-\varepsilon}} u = u(x_0,t_0) .\]
 
-    \end{proof}
+      If $(x_0, t_0) \in \Omega_{T-\varepsilon}$, then because we have a maximum at $(x_0, t_0)$, $u_{x_i}(x_0,t_0) = 0$ for $i = 1, \dots, d$, $u_t(x_0,t_0) = 0$, and $\Delta u(x_0,t_0) \leq 0$.
+
+      By ellipticity, we know the matrix given by $(A)_{ij} = a^{ij}$ is symmetric positive-definite. Therefore, there is an orthogonal matrix $O$
+      given by $(O)_{ij} = o_{ij}$ and
+      a diagonal matrix
+      \[ \Lambda = \mathop{diag} (\lambda_1, \dots, \lambda_d) \]
+      with $\lambda_k > 0$ for $k = 1, \dots, d$ such that
+      \[ \Lambda = O A O^T .\]
+
+      Let $y = x_0 + O(x - x_0)$. Then $x-x_0 = O^T(y-x_0)$. By use of the chain rule, we get
+      \begin{align*}
+        u_{x_i} &= \sum_{k=1}^d \frac{\partial y_k}{\partial x_i} u_{y_k} \\
+        &= \sum_{k=1}^d o_{ki} u_{y_k}
+     \end{align*}
+     and
+     \begin{align*}
+       u_{x_i x_j} &= \sum_{k,l=1}^d \frac{\partial y_k}{\partial x_i} \frac{\partial y_l}{\partial x_j} u_{y_k y_l} \\
+       &= \sum_{k,l=1}^d o_{ki} o_{lj} u_{y_k y_l}
+     \end{align*}
+
+     By performing the matrix multiplication, we find that
+     \begin{align*}
+       (\Lambda)_{kl} &= (OAO^T)_{kl} \\
+       &= \sum_{i,j=1}^d o_{ki} o_{lj} a^{ij}
+     \end{align*}
+
+     Now we have
+     \begin{align*}
+       Lu(x_0,t_0) &= \sum_{i,j=1}^d a^{ij} u_{x_i x_j} + \sum_{i=1}^d b^i u_{x_i} \\
+       &= \sum_{i,j=1}^d a^{ij} u_{x_i x_j} \quad \text{because $u_{x_i}=0$ } \\
+       &= \sum_{i,j=1}^d \sum_{k,l=1}^d o_{ki} o_{lj} a^{ij} u_{y_k y_l} \\
+       &= \sum_{k,l=1}^d (\Lambda)_{kl} u_{y_k y_l} \\
+       &= \sum_{k=1}^d \lambda_k u_{y_k y_k} \\
+     \end{align*}
+    Let $\lambda = \min_{k} \lambda_k$.
+    Because $u(x_0,t_0)$ is a maximum,
+    \begin{align*}
+      Lu(x_0,t_0) &\leq \lambda \Delta u \\
+      &\leq 0
+    \end{align*}
+
+    Because we assumed $u_t - Lu < 0$, we must have $u_t(x_0, t_0) < 0$. But $u_t(x_0,t_0) = 0$ at an interior minimum. Therefore $x \in
+    \partial \Omega_{T-\varepsilon}$.
+
+    If $(x_0, t_0) \in \Omega \times \{T-\varepsilon\}$, then as above, we would get $Lu(x_0,t_0) \leq 0$, so $u_t(x_0, t_0) < 0$, reaching the same
+    contradiction as before.
+    Therefore, we must have $(x_0,t_0) \in \partial^\ast \Omega_{T-\varepsilon}$.
+
+    Because $u$ is continuous, by taking $\varepsilon \to 0$, we get $(x_0, t_0) \in \partial^\ast \Omega_T$, as desired.
+
+  \end{proof}
 
   \item Jost 5.4
     \begin{claim}
