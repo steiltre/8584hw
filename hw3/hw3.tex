@@ -59,7 +59,7 @@
         &= \iint_{M(y,T;\mu)}^{} ( \Lambda(x,y,T+\varepsilon,t) - \mu ) u_t(x,t) dt dx
         - \iint_{M(y,T,\mu)}^{} ( \Lambda(x,y,T+\varepsilon,t) - \mu ) \Delta u(x,t) dx dt \\
         &=
-      \end{align*}<++>
+      \end{align*}
     \end{proof}
 
   \item Jost 5.1
@@ -136,13 +136,36 @@
 
     Because $u$ is continuous, by taking $\varepsilon \to 0$, we get $(x_0, t_0) \in \partial^\ast \Omega_T$, as desired.
 
+    For the general case, we assume
+    \[ u_t - Lu \leq 0 .\]
+    Define $v = u - \varepsilon t$ for some $\varepsilon >0$. We have
+    \begin{align*}
+      v_t &= u_t - \varepsilon \\
+      \leq Lu - \varepsilon \\
+      &= Lv - \varepsilon \\
+      < Lv
+    \end{align*}
+    Therefore, we know $v_t - Lv < 0$. We can then apply the work above to get
+    \begin{align*}
+      \max_{ \overline{\Omega}_T } u &= \max_{ \overline{\Omega}_T } (v + \varepsilon t) \\
+      &\leq \max_{ \overline{\Omega_T} } v + \varepsilon T \\
+      &= \max_{\partial^\ast \Omega_T} v + \varepsilon T \\
+      &\leq \max_{\partial^\ast \Omega_T} u + \varepsilon T
+    \end{align*}
+
+    By letting $\varepsilon \to 0$, we get
+    \[ \max_{\overline{\Omega}_T } u = \max_{\partial^\ast \Omega_T} u .\]
+    \textbf{NEED TO CONSIDER $T=\infty$}
+
   \end{proof}
 
   \item Jost 5.4
     \begin{claim}
       Let $\Sigma$ be the grid consisting of the points $(x,t)$ with $x = nh, t = mk, n,m \in \Z, m \geq 0$, and let $v$ be the solution of the
       discrete heat equation
-      \[ \frac{v(x,t+k) - v(x,t)}{k} - \frac{v(x+h,t) - 2v(x,t) + v(x-h,t)}{h^2} = 0 \]
+      \begin{equation} \label{eq:discrete_heat}
+        \frac{v(x,t+k) - v(x,t)}{k} - \frac{v(x+h,t) - 2v(x,t) + v(x-h,t)}{h^2} = 0
+    \end{equation}
       with $v(x,0) = f(x) \in C^0(\R)$.
       Then for $\frac{k}{h^2} = \frac{1}{2}$,
       \[ v(nh, mk) = 2^{-m} \sum_{j=0}^m \binom{m}{j} f \left( (n - m + 2j)h \right) .\]
@@ -151,6 +174,51 @@
     \end{claim}
 
     \begin{proof}
+      We will prove this claim by induction.
+      First, by plugging in $k=\frac{h^2}{2}, x = nh$, and $t = mk$ in \eqref{eq:discrete_heat}, we get
+      \begin{equation} \label{eq:heat_rec}
+        0 = \frac{2 v(nh, (m+1)k) - 2v(nh,mk)}{h^2} - \frac{v((n+1)h,mk) - 2v(nh,mk) + v(( n-1)h,mk) }{h^2} .
+      \end{equation}
+      Solving for $v(nh,(m+1)k)$, we find
+      \[ v(nh,(m+1)k) = \frac{1}{2} v( (n+1)h, mk) + \frac{1}{2} v( (n-1)h, mk) .\]
+
+      We will perform induction on $m$ only. First, let $m=0$. Then for any $n \in \Z$,
+      \begin{align*}
+        v(nh,0) &= f(nh) \\
+        &= 2^{0} \sum_{j=0}^0 \binom{0}{0} f( (n - 0 + 0)h)
+      \end{align*}
+      by definition, proving our base case.
+
+      Now we assume
+      \[ v(nh, mk) = 2^{-m} \sum_{j=0}^m \binom{m}{j} f \left( (n - m + 2j)h \right) .\]
+      for all $n \in \Z$.
+
+      Take any $n \in \Z$. Then by \eqref{eq:heat_rec},
+      \begin{align*}
+        v(nh, (m+1)k) &= \frac{1}{2} v( (n+1)h, mk) + \frac{1}{2} v( (n-1)h, mk) \\
+        &= 2^{-(m+1)} \sum_{j=0}^m \binom{m}{j} f( (n+1-m+2j)h) \\
+        &\quad + 2^{-(m+1)} \sum_{j=0}^m \binom{m}{j} f( (n-1-m+2j)h) \\
+        &= 2^{-(m+1)} \sum_{j=1}^{m+1} \binom{m}{j-1} f( (n-(m+1)+2j)h) \\
+        &\quad + 2^{-(m+1)} \sum_{j=0}^m \binom{m}{j} f( (n-(m+1)+2j)h) \\
+        &= 2^{-(m+1)} \left( \binom{m}{m} f( (n + (m+1) )h) + \binom{m}{0} f( (n - (m+1))h) \right) \\
+        &\quad + \sum_{j=1}^m \left( \binom{m}{j-1} \binom{m}{j} \right) f( (n-(m+1)+2j)h) \\
+        &= 2^{-(m+1)} \sum_{j=0}^{m+1} \binom{m+1}{j} f( (n-(m+1)+2j)h)
+      \end{align*}
+
+      Therefore, we have
+      \[ v(nh, mk) = 2^{-m} \sum_{j=0}^m \binom{m}{j} f \left( (n - m + 2j)h \right) .\]
+      for all $m,n \in \Z$ with $m>0$.
+
+      Also, we have for any $m\geq 0$
+      \begin{align*}
+        \sup_{n \in \Z} |v(nh,mk)| &\leq \sup_\R |f| 2^{-m} \sum_{j=0}^m \binom{m}{j} \\
+        &= \sup_\R |f| 2^{-m} 2^m \\
+        &= \sup_\R |f|
+      \end{align*}
+
+      Then taking the supremum over all $m \geq 0$, we get
+      \[ \sup_{\Sigma} |v| \leq \sup_{\R} |f| .\]
+
     \end{proof}
 
   \item Evans pg 87 \#12
@@ -220,8 +288,66 @@
     \begin{solution}
       \begin{enumerate}
         \item
+          Taking derivatives, we find
+          \[ u_t = -\frac{x}{2 t^{3/2}} v' \]
+          and
+          \[ u_{xx} = \frac{1}{t} v'' .\]
+
+          Therefore,
+          \begin{align*}
+            u_t = u_{xx} &\Leftrightarrow -\frac{x}{2 t^{3/2}} v' = \frac{1}{t} v'' \\
+            &\Leftrightarrow -\frac{x}{2 t^{1/2}} v' = v'' \quad \text{because we assume $t>0$} \\
+            &\Leftrightarrow v'' + \frac{z}{2} v' = 0
+          \end{align*}
+
+          We can solve this differential equation by introducing an integrating factor. We find
+          \begin{align*}
+            0 &= v'' + \frac{z}{2} v' \\
+            &= \left( e^{z^2/4} v' \right)'
+          \end{align*}
+
+          Therefore,
+          \[ v' = c e^{-z^2/4} .\]
+          This gives us the general solution as
+          \[ v = c \int_{0}^{z} e^{-s^2/4} ds + d .\]
 
         \item
+          We have that
+          \begin{align*}
+            u(x,0) &= \lim_{t \to 0} v \left( \frac{x}{\sqrt{t}} \right) \\
+            &= \lim_{z \to \pm \infty} c \int_{0}^{z} e^{-s^2/4} ds + d \\
+          \end{align*}
+          where we take $z \to \infty$ if $x>0$ and take $z \to -\infty$ if $x<0$. These integrals are Gaussians, so we have
+          \begin{align*}
+            u(x,0) &= \begin{cases}
+              c \sqrt{\pi} + d &\text{if } x>0 \\
+              -c \sqrt{\pi} + d &\text{if } x<0
+          \end{cases} \\
+          &= 2 c \sqrt{\pi} \mathcal{H}(x) + d - \sqrt{\pi}
+        \end{align*}
+        where $\mathcal{H}$ denotes the Heaviside function.
+
+        For the fundamental solution, we want to have initial data given by $\delta$. We see that
+        \[ u_x(x,0) = 2c \sqrt{\pi} \delta .\]
+        Assuming smoothness, $u_x$ will satisfy the heat equation as well. Therefore with $c = \frac{1}{\sqrt{4\pi}}$, we get $u_x(x,t) = v_x \left(
+        \frac{x}{\sqrt{t}} \right)$ satisfies
+        \begin{equation}
+          \begin{cases}
+            w_t = w_{xx} &\quad \text{for $x,t \in \R, t>0$} \\
+            w(x,0) = \delta
+          \end{cases}
+        \end{equation}
+
+        We have
+          \begin{align*}
+            v \left( \frac{x}{\sqrt{t}} \right) &= \frac{1}{\sqrt{4 \pi}} \int_{0}^{\frac{x}{\sqrt{t}}} e^{-s^2/4} ds + d \\
+            &= \frac{1}{\sqrt{4\pi}} \int_{0}^{x} e^{-w^2/(4t)} \frac{1}{\sqrt{t}} dw + d \quad \parbox{4cm}{by letting $s = w/\sqrt{t}$} \\
+          \end{align*}
+
+          Differentiating with respect to $x$, we get
+          \[ v_x \left( \frac{x}{\sqrt{t}} \right) = \frac{1}{\sqrt{4 \pi}} e^{-x^2/(4t)} \frac{1}{\sqrt{t}} .\]
+
+          This is the fundamental solution we wanted.
       \end{enumerate}
     \end{solution}
 \end{enumerate}
