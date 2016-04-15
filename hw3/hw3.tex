@@ -51,15 +51,27 @@
     \end{claim}
 
     \begin{proof}
+      Assume $v$ satisfies $v_t + \Delta v = 0$. Let $\nu$ be the outer unit normal to $M(y,T;\mu)$. Then
+      \begin{align*}
+        0 &= \int_{M(y,T;\mu)}^{} v (u_t - \Delta u) \\
+        &= \int_{M(y,T;\mu)}^{} v u_t - \int_{M(y,T;\mu)}^{} v \Delta u \\
+        &= \int_{\partial M(y,T;\mu)}^{} u v - \int_{M(y,T;\mu)}^{} u v_t \\
+        &\quad - \int_{\partial M(y,T;\mu)}^{} v \frac{\partial u}{\partial \nu} + \int_{M(y,T;\mu)}^{} \nabla v \cdot \nabla u \\
+        &= \int_{\partial M(y,T;\mu)}^{} u v - \int_{M(y,T;\mu)}^{} u v_t \\
+        &\quad - \int_{\partial M(y,T;\mu)}^{} v \frac{\partial u}{\partial \nu} + \int_{\partial M(y,T;\mu)}^{} u \frac{\partial v}{\partial \nu} -
+        \int_{M(y,T;\mu)}^{} u \Delta v \\
+        &= \int_{\partial M(y,T;\mu)}^{} uv - \int_{\partial M(y,T;\mu)}^{} \left( v \frac{\partial u}{\partial \nu} - u \frac{\partial v}{\partial
+        \nu} \right)
+      \end{align*}
+
+      Therefore,
+      \[ \int_{\partial M(y,T;\mu)}^{} uv = \int_{\partial M(y,T;\mu)}^{} \left( v \frac{\partial u}{\partial \nu} - u \frac{\partial v}{\partial \nu}
+      \right) .\]
+
       We define
       \[ \Lambda(x,y,t,t_0) = \frac{1}{(4 \pi |t-t_0|)^{d/2}} e^{\frac{|x-y|^2}{4(t_0 - t)} } .\]
-      Because $u$ satisfies the heat equation, we have
-      \begin{align*}
-        0 &= \iint_{M(y,T;\mu)}^{} ( \Lambda(x,y,T+\varepsilon,t) - \mu) (u_t (x,t) - \Delta u(x,t)) dx dt \\
-        &= \iint_{M(y,T;\mu)}^{} ( \Lambda(x,y,T+\varepsilon,t) - \mu ) u_t(x,t) dt dx
-        - \iint_{M(y,T,\mu)}^{} ( \Lambda(x,y,T+\varepsilon,t) - \mu ) \Delta u(x,t) dx dt \\
-        &=
-      \end{align*}
+
+      Let $v = \Lambda(x,y,T+\varepsilon, t) - \mu$ for some $\varepsilon>0$. Then $v_t + \Delta v = 0$.
     \end{proof}
 
   \item Jost 5.1
