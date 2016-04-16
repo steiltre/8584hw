@@ -71,7 +71,16 @@
       We define
       \[ \Lambda(x,y,t,t_0) = \frac{1}{(4 \pi |t-t_0|)^{d/2}} e^{\frac{|x-y|^2}{4(t_0 - t)} } .\]
 
-      Let $v = \Lambda(x,y,T+\varepsilon, t) - \mu$ for some $\varepsilon>0$. Then $v_t + \Delta v = 0$.
+      Let $v = \Lambda(x,y,T+\varepsilon, t) - \mu$ for some $\varepsilon>0$. Then $v_t + \Delta v = 0$, so we can use this $v$ in the above
+      calculations.
+
+      As calculated in Jost,
+      \[ \Lambda_{x_i} (x,y,t,t_0) = \frac{x^i - y^i}{2(t_0 - t)} \Lambda(x,y,t,t_0) .\]
+      Because $M(y,T;\mu)$ is defined as a level set of $\Lambda$, $\nabla \Lambda$ and $\nu_x$ are parallel. Therefore, we have
+      \begin{align*}
+        \frac{\partial \Lambda}{\partial \nu_x} &= - \frac{|x-y|}{2(T-t)} \Lambda \\
+        &= - \frac{|x-y|}{2(T-t)}\mu \quad \parbox{5cm}{because $\Lambda=\mu$ on $\partial M(y,T;\mu)$}
+      \end{align*}<++>
     \end{proof}
 
   \item Jost 5.1
