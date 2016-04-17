@@ -73,6 +73,18 @@
 
       Let $v = \Lambda(x,y,T+\varepsilon, t) - \mu$ for some $\varepsilon>0$. Then $v_t + \Delta v = 0$, so we can use this $v$ in the above
       calculations.
+      By the uniform continuity of $\Lambda$, we get
+      \begin{align*}
+        \lim_{\varepsilon \to 0} \int_{\partial M(y,T;\mu)}^{} uv &= \int_{\partial M(y,T;\mu)}^{} \lim_{\varepsilon \to 0} u
+        (\Lambda(x,y,T+\varepsilon,t) - \mu) \\
+        &= 0
+      \end{align*}
+
+      Similarly, we get
+      \[ \lim_{\varepsilon \to 0} \int_{\partial M(y,T;\mu)}^{} \left( (\Lambda(x,y,T+\varepsilon,t) - \mu) \frac{\partial u}{\partial \nu} \right) = 0 .\]
+
+      This leaves us with
+      \[ 0 = \lim_{\varepsilon \to 0} \int_{\partial M(y,T;\mu)}^{} -u \frac{\partial \Lambda}{\partial \nu} .\]
 
       As calculated in Jost,
       \[ \Lambda_{x_i} (x,y,t,t_0) = \frac{x^i - y^i}{2(t_0 - t)} \Lambda(x,y,t,t_0) .\]
@@ -80,7 +92,27 @@
       \begin{align*}
         \frac{\partial \Lambda}{\partial \nu_x} &= - \frac{|x-y|}{2(T-t)} \Lambda \\
         &= - \frac{|x-y|}{2(T-t)}\mu \quad \parbox{5cm}{because $\Lambda=\mu$ on $\partial M(y,T;\mu)$}
-      \end{align*}<++>
+      \end{align*}
+
+      Also from Jost, we have
+      \[ \Lambda_t(x,y,t,t_0) = -\frac{d}{2(t-t_0)} \Lambda + \frac{|x-y|^2}{4(t_0-t)^2} \Lambda .\]
+      Similar to above, we get
+      \[ \frac{\partial \Lambda}{\partial \nu_t} (x,y,T,t) = \left( \frac{d}{2(T - t)} + \frac{|x-y|^2}{4(T -
+      t)^2} \right) \mu \]
+      because $\Lambda = \mu$ on $\partial M(y,T;\mu)$.
+
+      This gives
+      \begin{align*}
+        0 &= \lim_{\varepsilon \to 0} \int_{\partial M(y,T;\mu)}^{} -u \frac{\partial \Lambda}{\partial \nu} (x,y,T+\varepsilon,t) \\
+        &= \lim_{\varepsilon \to 0} \int_{\partial M(y,T;\mu)}^{} u \frac{\partial \Lambda}{\partial \nu_x} (x,y,T+\varepsilon,t) - \lim_{\varepsilon
+        \to 0} \int_{\partial M(y,T;\mu)}^{} u \frac{\partial \Lambda}{\partial \nu_t} (x,y,T+\varepsilon,t)
+      \end{align*}
+
+      Therefore, we have
+      \[ \mu \int_{\partial M(y,T;\mu)}^{} u(x,t) \frac{|x-y|}{2(T-t)} = \mu \int_{\partial M(y,T;\mu)}^{} \left( \frac{d}{2(T-t)} + \frac{|x-y|^2}{4(T-t)^2} \right)
+      u(x,t) .\]
+
+      From here, I cannot get the right hand side to be $u(y,T)$.
     \end{proof}
 
   \item Jost 5.1
@@ -157,6 +189,8 @@
 
     Because $u$ is continuous, by taking $\varepsilon \to 0$, we get $(x_0, t_0) \in \partial^\ast \Omega_T$, as desired.
 
+    If $T = \infty$, we apply the same argument on every bounded domain.
+
     For the general case, we assume
     \[ u_t - Lu \leq 0 .\]
     Define $v = u - \varepsilon t$ for some $\varepsilon >0$. We have
@@ -176,7 +210,6 @@
 
     By letting $\varepsilon \to 0$, we get
     \[ \max_{\overline{\Omega}_T } u = \max_{\partial^\ast \Omega_T} u .\]
-    \textbf{NEED TO CONSIDER $T=\infty$}
 
   \end{proof}
 
@@ -283,6 +316,8 @@
           because $u_\lambda$ solves the heat equation. Thus, $v$ solves the heat equation as well.
       \end{enumerate}
     \end{proof}
+
+    \pagebreak
 
   \item Evans pg 87 \#13
     \begin{problem}
