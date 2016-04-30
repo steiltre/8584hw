@@ -186,19 +186,63 @@
 
       \begin{enumerate}
         \item
-          By looking at $a$ and $b$ one component at a time, it suffices to show the result for $n = 1$.
-
-          Take $a,b \in \R$. Then
+          Take $a,b \in \R^n$. Then
           \begin{align*}
-            0 &\leq ( \sqrt{2} a + \frac{1}{\sqrt{2}}b )^2 \\
-            &= 2 a^2 + 2ab + \frac{1}{2} b^2 \\
-            &= (a + b)^2 + a^2 - \frac{1}{2} b^2
+            0 &\leq \left| \sqrt{2} a + \frac{1}{\sqrt{2}}b \right|^2 \\
+            &= 2 |a|^2 + 2a \cdot b + \frac{1}{2} |b|^2 \\
+            &= |a + b|^2 + |a|^2 - \frac{1}{2} |b|^2
           \end{align*}
 
           Therefore,
           \[ |a+b|^2 + |a|^2 \geq \frac{1}{2} |b|^2 .\]
 
         \item
+          We have the functional
+          \[ F(u) = \frac{1}{2} \int_{\Omega}^{} | \nabla u|^2 dx \]
+          that we wish to minimize over the set
+          \[ \mathcal{A} = \{ u \in H^1(\Omega) : u-g \in H^1_0(\Omega) \} = \{ u = g+v : v \in H^1_0(\Omega) \} .\]
+
+          Take $u \in H^1_0(\Omega)$. Then
+          \begin{align*}
+            F(u) &= \frac{1}{2} \int_{\Omega}^{} | \nabla u |^2 dx \\
+            &= \frac{1}{4} \int_{\Omega}^{} | \nabla u |^2 dx + \frac{1}{4} \int_{\Omega}^{} | \nabla u |^2 dx \\
+            &\geq \frac{1}{4} \int_{\Omega}^{} | \nabla u |^2 dx + \frac{C}{4} \int_{\Omega}^{} | u |^2 dx \quad \parbox{5cm}{by Poincar\'{e}} \\
+            &\geq C' \|u\|_{H^1_0(\Omega)}^2
+          \end{align*}
+          for some $C'>0$. Therefore, $F$ is coercive. This tells us that $F$ is bounded below and $F(u) \to \infty$ as $\|u\|_{H^1_0(\Omega)} \to
+          \infty$.
+
+          Let $I = \inf \{ F(u) : u \in \mathcal{A} \}.$ Pick a sequence $\{u_j\} \subset \mathcal{A}$ such that $F(u_j) \leq I+1$ and $F(u_j) \to I$.
+          Write $u_j = v_j + g$ with $v_j \in H^1_0(\Omega)$. Then
+          \begin{align*}
+          F(v_j) &= \frac{1}{2} \int_{\Omega}^{} | \nabla v_j |^2 dx \\
+          &\leq \int_{\Omega}^{} | \nabla g + \nabla v_j |^2 + | \nabla g |^2 dx \quad \parbox{5cm}{using part (a)} \\
+          &= \int_{\Omega}^{} | \nabla u_j |^2 + | \nabla g |^2 dx \\
+          &\leq I + 1 + C
+          \end{align*}
+          for some $C$ because $g \in H^1_0(\Omega)$. Because $I > -\infty$ and $F(u) \to \infty$ as $\|u\|_{H_0^1(\Omega)} \to \infty$, we know $\{v_j\}$ is bounded in $H^1_0(\Omega)$.
+
+
+          $H_0^1 \subset L^2$ is a compact embedding, so there is a subsequence $v_{j_k} \to v$ in $L^2(\Omega)$. We can also find a further
+          subsequence such that $v_{j_k} \rightharpoonup \tilde{v}$ in $H^1_0(\Omega)$ (we denote this further subsequence as $v_{j_k}$ as well).
+          Because $\tilde{v} \in H^1_0(\Omega) \subset L^2(\Omega)$, we must have $v = \tilde{v}$.
+
+          By problem 2, we know
+          \[ \|v\|_{H_0^1(\Omega)} \leq \liminf_{k \to \infty} \|v_{j_k}\|_{H^1_0(\Omega)} .\]
+
+          Let $u = v + g$. Then,
+          \begin{align*}
+            F(u) &= F(v+g) \\
+            &= \frac{1}{2} \int_{\Omega}^{} | \nabla (v+g) |^2 dx \\
+            &= \frac{1}{2} \|v+g\|_{H^1_0}^2 - \frac{1}{2} \|v+g\|_{L^2}^2 \\
+            &\leq \liminf_{k \to \infty} \left( \frac{1}{2} \|v_{j_k}+g\|_{H^1_0}^2 - \frac{1}{2} \|v_{j_k}+g\|_{L^2}^2 \right) \quad \parbox{5cm}{by weak
+            convergence in $H^1_0$ and strong convergence in $L^2$} \\
+            &= \liminf_{k \to \infty} F(v_{j_k}+g) \\
+            &= \liminf_{k \to \infty} F(u_{j_k}) \\
+            &= I
+          \end{align*}
+
+          Thus, we have existence of a minimizer $v \in H^1_0(\Omega)$, and we must show $v \in \mathcal{A}$.
 
       \end{enumerate}
 
@@ -212,6 +256,36 @@
     \end{problem}
 
     \begin{solution}
+      Multiplying by a test function $v \in H^1(\Omega)$, we get the weak formulation
+      \[ \int_{\Omega}^{} \nabla u \cdot \nabla v dx = \int_{\partial \Omega}^{} v h dS .\]
+      Consider the functional
+      \[ F(u) = \frac{1}{2} \int_{\Omega}^{} | \nabla u |^2 dx - \int_{\partial \Omega}^{} h u dS.\]
+
+      We will be restricting our attention to
+      \[ \mathcal{A} = \{ u \in H^1(\Omega) : \int_{\Omega}^{} u dx = 0 \} .\]
+
+      Then for $v \in H^1(\Omega)$, we get
+      \begin{align*}
+        F'(u)v &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \left[ \frac{1}{2} \int_{\Omega}^{} \left( | \nabla(u + \varepsilon v)|^2 - | \nabla u
+        |^2 \right) dx - \int_{\partial \Omega}^{} \left( h(u + \varepsilon v) - hu \right) dS \right] \\
+        &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \left[ \int_{\Omega}^{} \left( \varepsilon \nabla u \cdot \nabla v + \frac{1}{2} \varepsilon^2 |\nabla
+        v|^2 \right) dx - \int_{\partial \Omega}^{} \varepsilon hv dS \right] \\
+        &= \int_{\Omega}^{} \nabla u \cdot \nabla v dx - \int_{\partial \Omega}^{} hv dS
+      \end{align*}
+
+      Therefore critical points of $F$ satisfy
+      \[ 0 = \int_{\Omega}^{} \nabla u \cdot \nabla v dx - \int_{\partial \Omega}^{} h v dS \]
+      for all $v \in H^1(\Omega)$ and are weak solutions of
+      \[ \begin{cases}
+          \Delta u = 0 &\text{in } \Omega \\
+          \frac{\partial u}{\partial \nu} = h &\text{on } \partial \Omega
+      \end{cases} \]
+
+      We must show that $F$ is coercive.
+      \begin{align*}
+        F(u) &= \frac{1}{2} \int_{\Omega}^{} | \nabla u |^2 dx - \int_{\partial \Omega}^{} h u dS \\
+      \end{align*}<++>
+
     \end{solution}
 
   \item McOwen 7.1.6
