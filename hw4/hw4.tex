@@ -309,6 +309,12 @@
     \end{problem}
 
     \begin{solution}
+      Take $u \in \mathcal{A}$. Then for any $v \in H^1_0(\Omega)$, we have
+      \begin{align*}
+        F'(u)v &= \lim_{\varepsilon \to 0} \frac{1}{2 \varepsilon} \int_{\Omega}^{} ( \Delta(u + \varepsilon v ))^2 - (\Delta u)^2 dx \\
+        &= \lim_{\varepsilon \to 0} \frac{1}{2 \varepsilon} \int_{\Omega}^{} 2 \varepsilon \Delta u \Delta v + \varepsilon^2 (\Delta v)^2 dx \\
+        &= \int_{\Omega}^{} \Delta u \Delta v dx
+      \end{align*}<++>
     \end{solution}
 
   \item McOwen 7.2.2
