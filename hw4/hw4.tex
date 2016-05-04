@@ -286,6 +286,56 @@
         F(u) &= \frac{1}{2} \int_{\Omega}^{} | \nabla u |^2 dx - \int_{\partial \Omega}^{} h u dS \\
       \end{align*}<++>
 
+      \textbf{TRY AGAIN!!!!!}
+
+      Define
+      \[ \mathcal{A} = \{ u \in H^1(\Omega) : (\partial u / \partial \nu - h) \big|_{\partial \Omega} = 0, \int_{\Omega}^{} u dx = 0 \} .\]
+      We consider the functional
+      \[ F(u) = \frac{1}{2} \int_{\Omega}^{} | \nabla u|^2 dx .\]
+
+      We will show existence of a minimizer $u$ of $F$ in $\mathcal{A}$. Let
+      \[ I = \inf \{ F(u) : u \in \mathcal{A} \} .\]
+
+      For any $u$, $F(u) \geq 0$, we $I \geq 0$. Take a sequence $\{ u_j \}_{j=1}^\infty \subset \mathcal{A}$ such that $F(u_j) \to I$ and $F(u_j) \leq I + 1$ for all
+      $j$.
+
+      Write $u_j = v_j + h$ (where we have extended $h$ to be in $H^1(\Omega)$ in such a way that $h$ has average zero). Then
+      $\int_{\Omega}^{} v_j dx = 0$ for all $j$, and $\partial v / \partial \nu = 0$ on $\partial \Omega$.
+
+      For any $w \in H^1(\Omega)$ such that $\int_{\Omega}^{} w dx = 0$,
+      \begin{align*}
+        F(w) &= \int_{\Omega}^{} |\nabla w|^2 dx \\
+        &= \frac{1}{2} \int_{\Omega}^{} |\nabla w|^2 dx + \frac{1}{2} \int_{\Omega}^{} |\nabla w|^2 dx \\
+        &\geq \frac{1}{2} \int_{\Omega}^{} |\nabla w|^2 dx + \frac{C}{2} \int_{\Omega}^{} |w|^2 dx \quad \parbox{5cm}{by Poincar\'{e}} \\
+        &\geq C' \|w\|_{H^1(\Omega)}^2
+      \end{align*}
+      Therefore, $F$ is coercive. So $F(u) \to \infty$ as $\|u\|_{H^1} \to \infty$, and $\{u_j\}_{j=1}^\infty$ is a bounded sequence in $H^1(\Omega)$.
+      Then
+      \begin{align*}
+        F(v_j) &= \frac{1}{2} \int_{\Omega}^{} |\nabla v_j|^2 dx \\
+        &\leq \int_{\Omega}^{} | \nabla h + \nabla v_j |^2 + | \nabla h |^2 dx \quad \parbox{5cm}{using part (a) of Problem 3} \\
+        &= \int_{\Omega}^{} |\nabla u_j|^2 + |\nabla h|^2 dx \\
+        &\leq I+1+C
+      \end{align*}
+      for some constant $C$. Thus $\{v_j\}_{j=1}^\infty$ is bounded in $H^1(\Omega)$ as well. Becuase $H^1 \subset L^2$ is a compact embedding, we can
+      pass to a subsequence to get $v_j \to v$ for some $v \in L^2(\Omega)$. By passing to a further subsequence, we get $v_j \rightharpoonup
+      \tilde{v}$ for some $\tilde{v} \in H^1(\Omega)$. Because $\tilde{v} \in H^1(\Omega) \subset L^2(\Omega)$, we know $\tilde{v} = v$.
+
+      Let $u = v + h$. Then
+      \begin{align*}
+        F(u) &= F(v+h) \\
+        &= \frac{1}{2} \int_{\Omega}^{} | \nabla(v + h) |^2 dx \\
+        &= \frac{1}{2} \|v+h\|_{H^1}^2 - \frac{1}{2} \|v+h\|_{L^2}^2 \\
+        &\leq \liminf_{j \to \infty} \left( \frac{1}{2} \|v_j + h\|_{H^1}^2 - \frac{1}{2} \|v_j + h\|_{L^2}^2 \right) \\
+        &= \liminf_{j \to \infty} F(v_j + h) \\
+        &= \liminf_{j \to \infty} F(u_j) \\
+        &= I
+      \end{align*}
+
+      Therefore, $u$ minimizes $F$ over $\mathcal{A}$.
+
+      \textbf{NOT SURE THIS IS RIGHT}
+
     \end{solution}
 
   \item McOwen 7.1.6
@@ -296,7 +346,44 @@
     \end{problem}
 
     \begin{solution}
+
+      Let $v \in H_0^1(\Omega)$ and $u$ satisfy the given equation. Then
+      \begin{align*}
+        \int_{\Omega}^{} f v dx &= \int_{\Omega}^{} \Delta u v + q(x) u v dx \\
+        &= \int_{\Omega}^{} - \nabla u \cdot \nabla v + q(x)u v dx + \int_{\partial \Omega}^{} \frac{\partial u}{\partial \nu} v dS \\
+        &= \int_{\Omega}^{} - \nabla u \cdot \nabla v + q(x) u v dx
+      \end{align*}
+
+      Therefore, a weak solution satisfies
+      \[ 0 = \int_{\Omega}^{} \nabla u \cdot \nabla v - q(x) u v + f v dx \]
+      for all $v \in H^1_0(\Omega)$.
     \end{solution}
+
+    Define the functional
+    \[ F(u) = \int_{\Omega}^{} \frac{1}{2} | \nabla u |^2 - \frac{1}{2} q(x) |u|^2 + f u dx .\]
+
+    Let $u, v \in H^1_0(\Omega)$. Then
+    \begin{align*}
+      F'(u) v &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \int_{\Omega}^{} \frac{1}{2} |\nabla(u+\varepsilon v)|^2 - \frac{1}{2} |\nabla u|^2 -
+      \frac{1}{2} q(x) |u + \varepsilon v|^2 + \frac{1}{2} q(x) |u|^2 + f(u+ \varepsilon v) - f u dx \\
+      &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \int_{\Omega}^{} \varepsilon \nabla u \cdot \nabla v + \frac{\varepsilon^2}{2} |\nabla v|^2 -
+      \varepsilon q(x) u v - \frac{\varepsilon^2}{2} q(x) |v|^2 + \varepsilon f v dx \\
+      &= \int_{\Omega}^{} \nabla u \cdot \nabla v - q(x) uv + fv dx
+    \end{align*}
+
+    From here, we see critical points of $F$ will be weak solutions of the given equation.
+
+    Also,
+    \begin{align*}
+      | F(u+v) - F(u) - F'(u)v | &= \int_{\Omega}^{} \frac{1}{2} | \nabla (u+v) |^2 - \frac{1}{2} q(x) |u+v|^2 + f(u+v) \\
+      &\quad \quad - \frac{1}{2} |\nabla u|^2 + \frac{1}{2} q(x) |u|^2 - f u - \nabla u \cdot \nabla v + q(x) uv - fv dx \\
+      &= \int_{\Omega}^{} \frac{1}{2} ( | \nabla u |^2 + 2 \nabla u \cdot \nabla v + | \nabla v |^2 ) - \frac{1}{2} q(x) ( |u|^2 + 2uv + |v|^2) + f(u + v) \\
+      &\quad \quad \frac{1}{2} |\nabla u|^2 + \frac{1}{2} q(x) |u|^2 - fu - \nabla u \cdot \nabla v + q(x) uv - fv dx \\
+      &= \int_{\Omega}^{} \frac{1}{2} |\nabla v|^2 - q(x) |v|^2 dx \\
+      &\leq C \|v\|_{H_0^1(\Omega)}^2 \quad \parbox{5cm}{because $q(x)$ is bounded}
+    \end{align*}
+
+    Therefore, $F$ is differentiable with derivative as given.
 
   \item McOwen 7.1.9
     \begin{problem}
