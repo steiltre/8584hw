@@ -545,9 +545,19 @@
           for all $v \in H^1_0(\Omega)$.
 
           Define the functionals
-          \[ F(u) = \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} + \sum_{i=1}^n b^i u_{x_i} - cu dx \]
+          \[ F(u) = \int_{\Omega}^{} \frac{1}{2} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} + \sum_{i=1}^n b^i u_{x_i} + cu dx \]
           and
           \[ G(u) = \int_{\Omega}^{} u^2 dx - 1 = \|u\|_{L^2}^2 -1 .\]
+
+          For $u,v \in H^1_0(\Omega)$, we have
+          \begin{align*}
+            F'(u)v &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \int_{\Omega}^{} \frac{1}{2} \sum_{i,j=1}^n a^{ij} \left( (u+\varepsilon v)_{x_i} (u+\varepsilon
+            v)_{x_j} - u_{x_i} u_{x_j} \right) \\
+            &\quad \quad \quad + \sum_{i=1}^n b^i \left( (u+\varepsilon v)_{x_i} - u_{x_i} \right) + c \left( (u + \varepsilon v) - u)
+            \right) dx \\
+            &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \int_{\Omega}^{} \frac{1}{2} \sum_{i,j=1}^n ( \varepsilon u_{x_i} v_{x_j} + \varepsilon
+            u_{x_j} v_{x_i} + \varepsilon^2 v_{x_i} v_{x_j})
+          \end{align*}<++>
 
         \item
 
