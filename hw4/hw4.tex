@@ -131,6 +131,8 @@
 
     \end{solution}
 
+    \pagebreak
+
   \item McOwen 7.1.3
     \begin{problem}
       \begin{enumerate}
@@ -258,35 +260,6 @@
     \begin{solution}
       Multiplying by a test function $v \in H^1(\Omega)$, we get the weak formulation
       \[ \int_{\Omega}^{} \nabla u \cdot \nabla v dx = \int_{\partial \Omega}^{} v h dS .\]
-      Consider the functional
-      \[ F(u) = \frac{1}{2} \int_{\Omega}^{} | \nabla u |^2 dx - \int_{\partial \Omega}^{} h u dS.\]
-
-      We will be restricting our attention to
-      \[ \mathcal{A} = \{ u \in H^1(\Omega) : \int_{\Omega}^{} u dx = 0 \} .\]
-
-      Then for $v \in H^1(\Omega)$, we get
-      \begin{align*}
-        F'(u)v &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \left[ \frac{1}{2} \int_{\Omega}^{} \left( | \nabla(u + \varepsilon v)|^2 - | \nabla u
-        |^2 \right) dx - \int_{\partial \Omega}^{} \left( h(u + \varepsilon v) - hu \right) dS \right] \\
-        &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \left[ \int_{\Omega}^{} \left( \varepsilon \nabla u \cdot \nabla v + \frac{1}{2} \varepsilon^2 |\nabla
-        v|^2 \right) dx - \int_{\partial \Omega}^{} \varepsilon hv dS \right] \\
-        &= \int_{\Omega}^{} \nabla u \cdot \nabla v dx - \int_{\partial \Omega}^{} hv dS
-      \end{align*}
-
-      Therefore critical points of $F$ satisfy
-      \[ 0 = \int_{\Omega}^{} \nabla u \cdot \nabla v dx - \int_{\partial \Omega}^{} h v dS \]
-      for all $v \in H^1(\Omega)$ and are weak solutions of
-      \[ \begin{cases}
-          \Delta u = 0 &\text{in } \Omega \\
-          \frac{\partial u}{\partial \nu} = h &\text{on } \partial \Omega
-      \end{cases} \]
-
-      We must show that $F$ is coercive.
-      \begin{align*}
-        F(u) &= \frac{1}{2} \int_{\Omega}^{} | \nabla u |^2 dx - \int_{\partial \Omega}^{} h u dS \\
-      \end{align*}<++>
-
-      \textbf{TRY AGAIN!!!!!}
 
       Define
       \[ \mathcal{A} = \{ u \in H^1(\Omega) : (\partial u / \partial \nu - h) \big|_{\partial \Omega} = 0, \int_{\Omega}^{} u dx = 0 \} .\]
@@ -334,9 +307,9 @@
 
       Therefore, $u$ minimizes $F$ over $\mathcal{A}$.
 
-      \textbf{NOT SURE THIS IS RIGHT}
-
     \end{solution}
+
+    \pagebreak
 
   \item McOwen 7.1.6
     \begin{problem}
@@ -449,13 +422,24 @@
     \end{problem}
 
     \begin{solution}
+      Take $v \in H^2_0(\Omega)$ with $\partial_{x_i} v \in H^1_0(\Omega)$ for all $i$. Then
+      \begin{align*}
+        \int_{\Omega}^{} \Delta (\Delta u) v dx &= - \int_{\Omega}^{} \nabla (\Delta u) \cdot \nabla v dx \\
+        &= \int_{\Omega}^{} \Delta u \Delta v dx
+      \end{align*}
+      This gives us our weak formulation for the biharmonic equation.
+
       Take $u \in \mathcal{A}$. Then for any $v \in H^1_0(\Omega)$, we have
       \begin{align*}
         F'(u)v &= \lim_{\varepsilon \to 0} \frac{1}{2 \varepsilon} \int_{\Omega}^{} ( \Delta(u + \varepsilon v ))^2 - (\Delta u)^2 dx \\
         &= \lim_{\varepsilon \to 0} \frac{1}{2 \varepsilon} \int_{\Omega}^{} 2 \varepsilon \Delta u \Delta v + \varepsilon^2 (\Delta v)^2 dx \\
         &= \int_{\Omega}^{} \Delta u \Delta v dx
-      \end{align*}<++>
+      \end{align*}
+
+      Thus critical points of the given functional for $u \in \mathcal{A}$ are weak solutions of the biharmonic equation.
     \end{solution}
+
+    \pagebreak
 
   \item McOwen 7.2.2
     \begin{problem}
@@ -501,7 +485,6 @@
     \begin{solution}
       Following the same argument used to show $f = \sum_{i=1}^\infty \alpha_i u_i$ where $\alpha_i = \la f, u_i \ra$, we can show
       \[ \nabla f = \sum_{i=1}^\infty \alpha_i \nabla u_i .\]
-      \textbf{SHOW THIS!!!!!!}
 
       Then
       \begin{align*}
