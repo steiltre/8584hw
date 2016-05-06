@@ -536,32 +536,185 @@
 
     \begin{solution}
 
-      Let $Lu = \sum_{i,j=1}^n (a^{ij} u_{x_i})_{x_j} - \sum_{i=1}^n b^i u_{x_i} - cu$ where $a^{ij} = a^{ji}$.
+      Let $Lu = \sum_{i,j=1}^n (a^{ij} u_{x_i})_{x_j} + cu$ where $a^{ij} = a^{ji}$ and $c(x) \leq 0$ for all $x \in \Omega$.
 
       \begin{enumerate}
         \item
           Weak solutions of equation \eqref{eqn:ell_div} satisfy
-          \[ \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} v_{x_j} + \sum_{i=1}^n b^i u_{x_i} v + c u v dx = \lambda \int_{\Omega}^{} uv dx \]
+          \[ \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} v_{x_j} - c u v dx = \lambda \int_{\Omega}^{} uv dx \]
           for all $v \in H^1_0(\Omega)$.
 
+          We will work with the following inner product:
+          \[ \la u, v \ra_X = \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} v_{x_j} dx + \int_{\Omega}^{} uv dx \]
+          for $u,v \in H^1_0(\Omega)$. $\la \cdot, \cdot \ra$ is symmetric because $a^{ij}=a^{ji}$, and this inner product is clearly linear. By
+          uniform ellipticity
+          \[ \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} dx \geq \theta \int_{\Omega}^{} | \nabla u |^2 dx = \theta \| \nabla u \|_{L^2}^2 .\]
+          Therefore, our inner product is positive definite because $H^1_0(\Omega)$ is positive definite with the standard inner product. Also,
+          because $a^{ij}$ is continuous and $\Omega$ is bounded,
+          \[ \left| \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} dx \right| \leq C \| \nabla u \|_{L^2}^2 .\]
+          Therefore, $\la \cdot , \cdot \ra_X$ defines an inner product on $H^1_0(\Omega)$. We will denote the norm it induces as $\| \cdot \|_X$ and
+          notice our use of uniform ellipticity and boundedness of $a^{ij}$ have shown this norm is equivalent to the standard norm on $H^1_0(\Omega)$.
+
           Define the functionals
-          \[ F(u) = \int_{\Omega}^{} \frac{1}{2} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} + \sum_{i=1}^n b^i u_{x_i} + cu dx \]
+          \[ F(u) = \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} - cu^2 dx \]
           and
           \[ G(u) = \int_{\Omega}^{} u^2 dx - 1 = \|u\|_{L^2}^2 -1 .\]
 
           For $u,v \in H^1_0(\Omega)$, we have
           \begin{align*}
-            F'(u)v &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \int_{\Omega}^{} \frac{1}{2} \sum_{i,j=1}^n a^{ij} \left( (u+\varepsilon v)_{x_i} (u+\varepsilon
-            v)_{x_j} - u_{x_i} u_{x_j} \right) \\
-            &\quad \quad \quad + \sum_{i=1}^n b^i \left( (u+\varepsilon v)_{x_i} - u_{x_i} \right) + c \left( (u + \varepsilon v) - u)
-            \right) dx \\
-            &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \int_{\Omega}^{} \frac{1}{2} \sum_{i,j=1}^n ( \varepsilon u_{x_i} v_{x_j} + \varepsilon
-            u_{x_j} v_{x_i} + \varepsilon^2 v_{x_i} v_{x_j})
-          \end{align*}<++>
+            F'(u)v &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} \left( (u+\varepsilon v)_{x_i} (u+\varepsilon
+            v)_{x_j} - u_{x_i} u_{x_j} \right) - c \left( (u + \varepsilon v)^2 - u^2) \right) dx \\
+            &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \int_{\Omega}^{} \sum_{i,j=1}^n ( \varepsilon u_{x_i} v_{x_j} + \varepsilon
+            u_{x_j} v_{x_i} + \varepsilon^2 v_{x_i} v_{x_j}) - 2 \varepsilon c u v - \varepsilon^2 c v^2 dx \\
+            &= \lim_{\varepsilon \to 0} \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} ( 2 \varepsilon u_{x_i} v_{x_j} + \varepsilon^2 v_{x_i} v_{x_j} )
+            - 2 \varepsilon c u v - \varepsilon^2 c v^2 dx \quad \parbox{5cm}{because $a^{ij} = a^{ji}$} \\
+            &= \int_{\Omega}^{} 2 \sum_{i,j=1}^n a^{ij} u_{x_i} v_{x_j} - 2 c u v dx
+          \end{align*}
+          and
+          \begin{align*}
+            G'(u)v &= \lim_{\varepsilon \to 0} \int_{\Omega}^{} (u+\varepsilon v)^2 - u^2 dx - 1 + 1 \\
+            &= \lim_{\varepsilon \to 0} \int_{\Omega}^{} 2 \varepsilon uv + \varepsilon^2 v^2 dx \\
+            &= \int_{\Omega}^{} 2 uv dx
+          \end{align*}
+
+          Now we must show $F$ and $G$ are differentiable.
+          \begin{align*}
+            |F(u+v) - F(u) - F'(u)v| &= \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} \left( (u+v)_{x_i} (u+v)_{x_j} - u_{x_i} u_{x_j} - 2
+            u_{x_i} v_{x_j} \right) \\
+            &\quad \quad \quad - c(u+v)^2 + cu^2 + 2c u v dx \\
+            &= \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} v_{x_i} v_{x_j} - c v^2 dx \\
+            &\leq C \| v \|_X^2 \quad \parbox{5cm}{because $c$ is continuous and $\Omega$ is bounded} \\
+            &= o(\|v\|_X)
+          \end{align*}
+
+          \begin{align*}
+            |G(u+v) - G(u) - G'(u)v| &= \int_{\Omega}^{} (u+v)^2 - u^2 - 2uv dx \\
+            &= \int_{\Omega}^{} v^2 dx \\
+            &= \|v\|_{L^2}^2 \\
+            &\leq \|v\|_X^2 \\
+            &= o(\|v\|_X)
+          \end{align*}
+
+          Therefore, $F$ and $G$ are differentiable. Next we will show $F$ and $G$ are $C^1$.
+          Take $u,v,w \in H^1_0(\Omega)$. Then
+          \begin{align*}
+            | \left( F'(u) - F'(v) \right) w |^2 &= \left| \int_{\Omega}^{} 2 \sum_{i,j=1}^n a^{ij} (u_{x_i} - v_{x_i}) w_{x_j}  - 2 c(u-v)w dx \right|^2 \\
+            &\leq C \left| \int_{\Omega}^{} \sum_{i=1}^n (u_{x_i} - v_{x_i}) \sum_{j=1}^n w_{x_j} - (u-v)w dx \right|^2 \quad \parbox{4cm}{because
+            $a^{ij}, c$ are continuous and $\Omega$ is bounded} \\
+            &\leq C \left( \sum_{i=1}^n \|u_{x_i} - v_{x_i}\|_{L^2}^2 \sum_{j=1}^n \|w_{x_j}\|_{L^2}^2  + \|u-v\|_{L^2}^2 \|w\|_{L^2}^2 \right) \\
+            &\leq \tilde{C} \| \nabla (u-v) \|_{L^2}^2 \| \nabla w \|_{L^2}^2 \quad \parbox{5cm}{by Poincar\'{e}}
+          \end{align*}
+
+          Therefore using the equivalence of our norms,
+          \[ | (F'(u) - F'(v) ) w | \leq C \|u-v\|_X \|w\|_X .\]
+          By definition, we have
+          \begin{align*}
+            \|F'(u) - F'(v)\|_{H^{-1}} &= \sup_{w \not = 0} \frac{| (F'(u) - F'(v)) w|}{\|w\|_X} \\
+            &\leq C \|u-v\|_X
+          \end{align*}
+
+          Thus, $F$ is $C^1$.
+
+          Also,
+          \begin{align*}
+            |(G'(u) - G'(v))w| &= \left| \int_{\Omega}^{} 2 (u-v) w dx \right| \\
+            &\leq 2 \|u-v\|_{L^2} \|w\|_{L^2} \\
+            &\leq 2 \|u-v\|_X \|w\|_X
+          \end{align*}
+
+          Therefore,
+          \begin{align*}
+            \|G'(u) - G'(v)\|_{H^{-1}} &= \sup_{w \not = 0} \frac{|(G'(u) - G'(v))w|}{\|w\|_X} \\
+            &\leq \|u-v\|_X
+          \end{align*}
+          and $G$ is $C^1$ as well.
+
+          Now we verify that $F$ attains its minimum on
+          \[ \mathcal{C} = \{ u \in H^1_0(\Omega) | G(u)=0 \} .\]
+          Let $I = \inf \{ F(u) | u \in \mathcal{C} \}.$ Take a sequence $\{u_j\} \in \mathcal{C}$ such that $F(u_j) \to I$ and $F(u_j) \leq I+1$ for
+          all $j$. By the equivalence of our norms on $H^1_0(\Omega)$, $F$ is coercive, so $\{u_j\}$ is bounded. Therefore, by passing to
+          subsequences, we have $u_j \to \bar{u}$ in $L^2(\Omega)$ and $u_j \rightharpoonup \tilde{u}$ in $H^1_0(\Omega)$. Because $L^2 \subset H^1_0,
+          \bar{u} = \tilde{u}$.
+
+          Because $u_j \to \bar{u}$ in $L^2$, we know
+          \[ \|\bar{u}\|_{L^2} = \lim_{j \to \infty} \|u_j\|_{L^2} = 1 \]
+          because $u_j \in \mathcal{C}$ for all $j$. Therefore, $\bar{u} \in \mathcal{C}$.
+          Strong $L^2$ convergence also tells us that
+          \begin{align*}
+            \left| \int_{\Omega}^{} c \bar{u}^2 dx - \int_{\Omega}^{} c u_j^2 dx \right| &= \left| \int_{\Omega}^{} c (\bar{u}-u_j)^2 dx \right| \\
+            &\leq C \|u_j - \bar{u} \|_{L^2}^2 \\
+            &\quad \to 0 \text{ as } j \to \infty
+          \end{align*}
+          where we have used the continuity of $c$ and boundedness of $\Omega$ to conclude $|c(x)| \leq C$ for all $x \in \Omega$ and some $C>0$.
+          Putting this all together, we get
+          \begin{align*}
+            F(\bar{u}) &= \|\bar{u}\|_{X}^2 - \|\bar{u}\|_{L^2}^2 - \int_{\Omega}^{} c \bar{u}^2 dx \\
+            &\leq \liminf_{j \to \infty} \|u_j\|_{X}^2 - \|u_j\|_{L^2}^2 - \int_{\Omega}^{} c u_j^2 dx \quad \parbox{5cm}{by weak lower-semicontinuity
+            of norms} \\
+            &= \liminf_{j \to \infty} F(u_j) \\
+            &= I
+          \end{align*}
+
+          Because $\bar{u} \in \mathcal{C}$, we know $F(\bar{u}) = I$, and $F$ attains its minimum on $\mathcal{C}$ at $\bar{u}$.
+
+          Therefore, from the Euler-Lagrange equations, we know
+          \[ \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} \bar{u}_{x_i} v_{x_j} - c u v dx = \lambda \int_{\Omega}^{} \bar{u} v dx \]
+          for all $v \in H^1_0(\Omega)$, and $\bar{u}$ is an eigenfunction for $L$ corresponding to the eigenvalue $\lambda$ for some $\lambda$.
+          Relabel $(\lambda, \bar{u})$ as $(\lambda_1, u_1)$.
+          By taking $v = u_1$ above, we find
+          \begin{align*}
+            I &= F(u_1) \\
+            &= \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} \partial_{x_i} u_1 \partial_{x_j} u_1 - c u_1^2 dx \\
+            &= \lambda \int_{\Omega}^{} u^2 dx \\
+            &= \lambda
+          \end{align*}
+
+          So we can define $\lambda_1$ by
+          \[ \lambda_1 = \inf_{u \in H^1_0(\Omega)} \frac{\int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} - cu^2 dx }{\int_{\Omega}^{} u^2 dx}
+          .\]
+
+          By uniform ellipticity, we know
+          \[ \sum_{i,j}^n a^{ij} u_{x_i} u_{x_j} > \theta | \nabla u |^2 \geq 0 \]
+          From here, we see that if $c(x) \leq c_0$ for all $x \in \Omega$, then
+          \[ \lambda_1 \geq \frac{-c_0 \int_{\Omega}^{} u^2 dx}{\int_{\Omega}^{} u^2 dx} = -c_0 \]
 
         \item
+          After finding $(\lambda_1, u_1)$, assume there is another eigenpair $(\lambda_2, u_2)$ with $\lambda_1 \not = \lambda_2$. Then
+          \begin{align*}
+            (\lambda_1 - \lambda_2) \int_{\Omega}^{} u_1 u_2 dx &= \int_{\Omega}^{} \lambda_1 u_1 u_2 dx - \int_{\Omega}^{} u_1 \lambda_2 u_2 dx \\
+            &= \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} \partial_{x_i} u_1 \partial_{x_j} u_2 - c u_1 u_2 dx - \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij}
+            \partial_{x_i} u_2 \partial_{x_j} u_1 - c u_1 u_2 dx \\
+            &= 0
+          \end{align*}
+
+          Because we assumed $\lambda_1 \not = \lambda_2$ we know $ \la u_1, u_2 \ra_{L^2} = 0$. So eigenfunctions corresponding to different
+          eigenvalues are orthogonal in $L^2$. Therefore, when searching for $\lambda_2$ we should look in
+          \[ X_1 = \{ v \in H^1_0 | \la v, u_1 \ra = 0 \} .\]
+          From this we define
+          \[ \lambda_2 = \inf \{ F(v) | v \in X_1 \text{ and } \|v\|_{L^2} = 1 \} = \inf_{v \in X_1} \frac{\int_{\Omega}^{} \sum_{i,j=1}^n a^{ij}
+          u_{x_i} u_{x_j} - c u^2 dx }{\int_{\Omega}^{} u^2 dx} .\]
+
+          Because $X_1 \subset H^1_0(\Omega)$, we see $\lambda_1 \leq \lambda_2$. By continuing inductively, we see that our eigenfunctions for
+          subsequent eigenvalues will be orthonormal, and $\lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \dots$
+
+          Assume our eigenvalues are bounded. Because $c(x) \leq 0$ for all $x \in \Omega$, we have
+          \begin{align*}
+            \|u_n\|_X^2 &= \la u_n , u_n \ra_X \\
+            &= \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} + u^2 dx \\
+            &\leq \int_{\Omega}^{} \sum_{i,j=1}^n a^{ij} u_{x_i} u_{x_j} - c u^2 dx + \int_{\Omega}^{} u^2 dx \\
+            &= \lambda_n + 1
+          \end{align*}
+
+          Because we assumed our eigenvalues are bounded, we have $\|u_n\|_X^2 \leq C$ for some $C$ and all $n$. So $\{u_j\}_{j=1}^\infty$ is a
+          bounded sequence in $H^1_0(\Omega)$. Because $H^1_0$ is compactly embedded in $L^2$, we can find a subsequence $\{u_{j_k}\}$ converging in
+          $L^2$. But by the Pythagorean Theorem,
+          \[ \| u_i - u_k \|_{L^2}^2 = 2 \]
+          for $i \not = j$ because our eigenfunctions are orthonormal, which is a contradiction. Therefore, $\lambda_n \to \infty$.
 
         \item
+          Because $\lambda_n \to \infty$, each eigenvalue will only be found by our minimization procedure a finite number of times. For a fixed
+          eigenvalue $\lambda_i$, this also produces an orthonormal set of eigenfunctions spanning the eigenspace corresponding to $\lambda_i$
+          (if not, our minimization would have repeated $\lambda_i$ again). Therefore, each eigenspace is finite dimensional.
       \end{enumerate}
 
     \end{solution}
@@ -572,6 +725,34 @@
     \end{problem}
 
     \begin{solution}
+      Take $u \in H^1_0(\hat{\Omega})$. Then there is a sequence $\{u_j\} \subset C_c^\infty(\hat{\Omega})$ such that $u_j \to u$ in
+      $H^1(\hat{\Omega})$. If we define $\tilde{u}_j$ to equal $u_j$ on $\hat{\Omega}$ and to be 0 on $\Omega \setminus \hat{\Omega}$, we get
+      $\tilde{u}_j \to \tilde{u}$ where $\tilde{u}$ is $u$ extended to be 0 on $\Omega \setminus \hat{\Omega}$. So we can consider
+      $H^1_0(\hat{\Omega}) \subset H^1_0(\Omega)$.
+
+      For $v_1, \dots, v_{n-1} \in H^1_0(\Omega)$, define
+      \begin{align*}
+        &m \{v_1, \dots, v_{n-1} \} = \\
+        &\quad \inf_{u \in H^1_0(\Omega)} \left\{ \int_{\Omega}^{} | \nabla u|^2 dx : \|u\|_2 = 1, \la u, v_i \ra = 0 \text{ for } i=1, \dots, n-1
+      \right\}
+      \end{align*}
+      and for $\hat{v}_1, \dots , \hat{v}_{n-1} \in H^1_0(\hat{\Omega})$, define
+      \begin{align*}
+        &\hat{m} \{\hat{v}_1, \dots, \hat{v}_{n-1} \} = \\
+        &\quad \inf_{u \in H^1_0(\hat{\Omega}) } \left\{ \int_{\hat{\Omega}}^{} | \nabla u|^2 dx : \|u\|_2 = 1, \la u, \hat{v}_i \ra = 0 \text{ for } i=1, \dots, n-1
+      \right\}
+    \end{align*}
+
+      By the above identification, for any $v_1, \dots, v_{n-1} \in H^1_0(\hat{\Omega})$, we have
+      \[ m \{ v_1, \dots, v_n \} \leq \hat{m} \{ v_1, \dots, v_n \} .\]
+
+      Therefore,
+      \begin{align*}
+        \lambda_n (\Omega) &= \sup_{v_1, \dots, v_{n-1} \in H^1_0(\Omega) } m \{ v_1, \dots, v_{n-1} \} \\
+        &\leq \sup_{v_1, \dots , v_{n-1} \in H^1_0(\hat{\Omega})} \hat{m} \{ v_1, \dots, v_{n-1} \} \\
+        &= \lambda_n (\hat{\Omega})
+      \end{align*}
+
     \end{solution}
 
 \end{enumerate}
