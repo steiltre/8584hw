@@ -1,0 +1,158 @@
+%        File: final.tex
+%     Created: Sat May 07 10:00 PM 2016 C
+% Last Change: Sat May 07 10:00 PM 2016 C
+%
+
+\documentclass[a4paper]{article}
+
+\title{Math 8584 Final }
+\date{5/12/16}
+\author{Trevor Steil}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{esint}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem*{claim}{Claim}
+\newtheorem*{problem}{Problem}
+%\newtheorem*{lemma}{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\supp}[1]{\mathop{\mathrm{supp}}\left(#1\right)}
+\newcommand{\lip}[1]{\mathop{\mathrm{Lip}}\left(#1\right)}
+\newcommand{\curl}{\mathrm{curl}}
+\newcommand{\la}{\left \langle}
+\newcommand{\ra}{\right \rangle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newenvironment{solution}{\emph{Solution.}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item McOwen Page 398, Problem 1
+    \begin{claim} $G(u) = \int_{}^{} a(x) |u|^{\sigma + 1} dx$, as in Proposition 1, is a $C^1$ functional.
+    \end{claim}
+
+    \begin{proof}
+      The book already shows $G(u)$ is differentiable. We must only show $G'$ is continuous.
+    \end{proof}
+
+    \pagebreak
+
+  \item McOwen Page 398, Problem 2
+    \begin{problem}
+      This exercise shows that the restriction $1 < \sigma < (n+2)/(n-2)$ is necessary for the existence of positive solutions of
+      \[ \begin{cases}
+          \Delta u + a(x) u^\sigma = 0 &\text{in } \Omega \\
+          u = 0 &\text{on } \partial \Omega
+        \end{cases} \]
+        by considering
+        \begin{equation}
+          \begin{cases}
+            \Delta u + f(u) = 0 &\text{in } \Omega \\
+            u=0 &\text{on } \partial \Omega
+          \end{cases}
+          \label{eqn:prob2}
+        \end{equation}
+        where $f(u)$ is continuous in $u \in \R$.
+
+        \begin{enumerate}
+          \item
+            If $F(u) = \int_{0}^{u} f(t)dt$, use integration by parts to show
+            \[n \int_{\Omega}^{} F(u) dx + \int_{\Omega}^{} f(u) \sum_{i=1}^n x_i \frac{\partial u}{\partial x_i} dx = 0 ,\]
+            for any $u \in C^1( \overline{\Omega} )$ with $u=0$ on $\partial \Omega$.
+
+          \item
+            If $u \in C^2(\Omega) \cap C( \overline{\Omega} )$ satisfies \eqref{eqn:prob2}, then prove Pohozaev's identity
+            \[ \frac{n-2}{2} \int_{\Omega}^{} |\nabla u|^2 dx - n \int_{\Omega}^{} F(u)dx + \frac{1}{2} \int_{\partial \Omega}^{} \left(
+            \frac{\partial u}{\partial \nu} \right)^2 (x \cdot \nu) ds = 0 \]
+            where $\nu$ is the exterior unit normal.
+
+          \item
+            When $\Omega$ is a ball in $\R^n$, show that \eqref{eqn:prob2} admits no positive solutions $u \in C^2 ( \Omega ) \cap C(
+            \overline{\Omega} )$ when $f(u) = u^\sigma$ with $\sigma \geq (n+2)/(n-2)$.
+
+        \end{enumerate}
+
+      \end{problem}
+
+      \begin{solution}
+
+        \begin{enumerate}
+          \item
+
+          \item
+
+          \item
+
+        \end{enumerate}
+
+      \end{solution}
+
+      \pagebreak
+
+  \item McOwen, Page 227, Problem 5
+    \begin{problem}
+      Suppose we want to solve $\Delta u = 0$ in $\Omega$ with $\partial u / \partial \nu = h$ on $\partial \Omega$, where $\Omega$ is a smooth
+      bounded domain in $\R^n$ and $h \in C^\infty(\partial \Omega)$ satisfies $\int_{\partial \Omega}^{} h dS = 0$. Show how to obtain a weak
+      soltution $u \in H^1(\Omega)$ from the existence theory discussed in this section.
+    \end{problem}
+
+    \begin{solution}
+    \end{solution}
+
+    \pagebreak
+
+  \item McOwen Page 227, Problem 8
+    \begin{problem}
+      Define the graph area functional by
+      \[ F(u) = \int_{\Omega}^{} \sqrt{1 + u_x^2 + u_y^2} dx dy \quad \text{for} u \in H^1(\Omega) \]
+      where $\Omega$ is a bounded domain in $\R^2$.
+
+      \begin{enumerate}
+        \item Compute the derivative of $F$ and show that $F$ is $C^1$ on $H^1(\Omega)$.
+
+        \item
+          Given $g \in H^1(\Omega)$, let
+          \[ \mathcal{A} = \{ u \in H^1(\Omega) : u-g \in H^1_0(\Omega) \} = \{u = g+v : v \in H^1_0(\Omega) \} .\]
+          Show that a critical point of $F$ on $\mathcal{A}$ is a weak solution of the minimal surface equation $(1+u_y^2)u_{xx} - 2 u_x u_y u_{xy} +
+          (1+u_x^2)u_{yy} = 0$ in $\Omega, u=g$ on $\partial \Omega$.
+
+        \item
+          Generalize (a) and (b) to dimension $n$, obtaining the minimal surface equation given by
+          \[ \div \left( \frac{\nabla u}{(1_| \nabla u |^2)^{1/2}} \right) = 0 .\]
+
+      \end{enumerate}
+
+    \end{problem}
+
+    \begin{solution}
+    \end{solution}
+
+    \pagebreak
+
+  \item McOwen Page 228, Problem 11
+    \begin{problem}
+      Suppose $F$ is a $C^1$ functional on $X$ satisfying (i) $F'(u) = L + K(u)$, where $L:X \to X^\ast$ is an isomorphism (i.e., a bounded linear
+      operator that is one-to-one and onto) and $K:X \to X^\ast$ is a compact map (i.e., maps bounded sets of $X$ to precompact sets of $X^\ast$ but
+      $K$ is not necessarily linear); and (ii) every Palais-Smale sequence is bounded in $X$. Show that $F$ satisfies the Palais-Smale condition.
+    \end{problem}
+
+    \begin{solution}
+    \end{solution}
+
+\end{enumerate}
+\end{document}
+
+
