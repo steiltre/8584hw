@@ -33,6 +33,7 @@
 \newcommand{\la}{\left \langle}
 \newcommand{\ra}{\right \rangle}
 \renewcommand{\vec}[1]{\mathbf{#1}}
+\renewcommand{\div}{\mathrm{div}}
 
 \newenvironment{solution}{\emph{Solution.}}
 
@@ -91,8 +92,40 @@
 
         \begin{enumerate}
           \item
+            By writing $n F(u) = \sum_{i=1}^n F(u) \partial_i x_i$, we get
+            \begin{align*}
+              n \int_{\Omega}^{} F(u) dx &= \int_{\Omega}^{} \sum_{i=1}^n F(u) \partial_i x_i dx \\
+              &= \int_{\partial \Omega}^{} \sum_{i=1}^n F(u) x_i \nu_i ds - \int_{\Omega}^{} \sum_{i=1}^n \partial_i F(u) x_i dx \quad
+              \parbox{5cm}{integrating by parts} \\
+              &= - \int_{\Omega}^{} \sum_{i=1}^n \partial_i \int_{0}^{u} f(t) dt x_i dx \quad \parbox{5cm}{because $u=0$ on $\partial \Omega$}\\
+              &= - \int_{\Omega}^{} \sum_{i=1}^n f(u) \frac{\partial u}{\partial x_i} x_i dx
+            \end{align*}
+
+            Therefore,
+            \[ n \int_{\Omega}^{} F(u) dx + \int_{\Omega}^{} f(u) \sum_{i=1}^n x_i \frac{\partial u}{\partial x_i} dx = 0 .\]
 
           \item
+            Using part (a) and Einstein summation notation, we have
+            \begin{align*}
+              n \int_{\Omega}^{} F(u) dx &= - \int_{\Omega}^{} f(u) \partial_i u x_i dx \\
+              &= \int_{\Omega}^{} \Delta u \partial_i u x_i dx \quad \parbox{5cm}{by \eqref{eqn:prob2}} \\
+              &= \int_{\Omega}^{} \partial_j \partial_j u \partial_i u x_i dx \\
+              &= \int_{\partial \Omega}^{} x_i \partial_i u \partial_j u \nu_j ds - \int_{\Omega}^{} \partial_j u \partial_j (x_i \partial_i u) dx \\
+              &= \int_{\partial \Omega}^{} x_i \partial_i u \partial_j u \nu_j ds - \int_{\Omega}^{} \partial_j u (\delta_{ij} \partial_i u + x_i
+              \partial_j \partial_i u ) dx \\
+              &= \int_{\partial \Omega}^{} x_i \partial_i u \partial_j u \nu_j ds - \int_{\Omega}^{} \partial_j u \partial_j u dx -
+              \int_{\Omega}^{} x_i \partial_j u \partial_j \partial_i u dx \\
+              &= \int_{\partial \Omega}^{} x_i \partial_i u \partial_j u \nu_j ds - \int_{\Omega}^{} | \nabla u |^2 dx - \frac{1}{2}
+              \int_{\Omega}^{} x_i \partial_i (\partial_j u \partial_j u) dx \\
+              &= \int_{\partial \Omega}^{} x_i \partial_i u \partial_j u \nu_j ds - \int_{\Omega}^{} | \nabla u |^2 dx - - \frac{1}{2} \int_{\partial
+              \Omega}^{} x_i \nu_i | \nabla u |^2 ds + \frac{n}{2} \int_{\Omega}^{} | \nabla u |^2 dx \\
+              &= \frac{n-2}{2} \int_{\Omega}^{} | \nabla u |^2 dx + \int_{\partial \Omega}^{} x_i \partial_i u \partial_j u \nu_j ds -
+              \frac{1}{2} \int_{\Omega}^{} x_i \nu_i | \nabla u |^2 ds \\
+              &=
+            \end{align*}
+
+            Because $u=0$ on $\partial \Omega$, $\partial \Omega$ is a level set for $u$, and $| \nabla u |^2 = \left( \frac{\partial u}{\partial \nu}
+            \right)^2$.
 
           \item
 
@@ -130,7 +163,7 @@
 
         \item
           Generalize (a) and (b) to dimension $n$, obtaining the minimal surface equation given by
-          \[ \div \left( \frac{\nabla u}{(1_| \nabla u |^2)^{1/2}} \right) = 0 .\]
+          \[ \div \left( \frac{\nabla u}{(1+| \nabla u |^2)^{1/2}} \right) = 0 .\]
 
       \end{enumerate}
 
