@@ -120,14 +120,59 @@
               &= \int_{\partial \Omega}^{} x_i \partial_i u \partial_j u \nu_j ds - \int_{\Omega}^{} | \nabla u |^2 dx - - \frac{1}{2} \int_{\partial
               \Omega}^{} x_i \nu_i | \nabla u |^2 ds + \frac{n}{2} \int_{\Omega}^{} | \nabla u |^2 dx \\
               &= \frac{n-2}{2} \int_{\Omega}^{} | \nabla u |^2 dx + \int_{\partial \Omega}^{} x_i \partial_i u \partial_j u \nu_j ds -
-              \frac{1}{2} \int_{\Omega}^{} x_i \nu_i | \nabla u |^2 ds \\
-              &=
+              \frac{1}{2} \int_{\partial \Omega}^{} x_i \nu_i | \nabla u |^2 ds \\
+              &= \frac{n-2}{2} \int_{\Omega}^{} | \nabla u |^2 dx + \int_{\partial \Omega}^{} (x \cdot \nabla u) (\nabla u \cdot \nu) ds -
+              \frac{1}{2} \int_{\partial \Omega}^{} | \nabla u |^2 (x \cdot \nu) ds
             \end{align*}
 
-            Because $u=0$ on $\partial \Omega$, $\partial \Omega$ is a level set for $u$, and $| \nabla u |^2 = \left( \frac{\partial u}{\partial \nu}
+            Because $u=0$ on $\partial \Omega$, $\partial \Omega$ is a level set for $u$ and $\nu$ is parallel to $\nabla u$. This tells us $\nabla u
+            = |\nabla u| \nu$ and $| \nabla u |^2 = \left( \frac{\partial u}{\partial \nu}
             \right)^2$.
 
+            Therefore,
+            \begin{equation*}
+              \frac{n-2}{2} \int_{\Omega}^{} | \nabla u |^2 dx - n \int_{\Omega}^{} F(u) dx + \frac{1}{2} \int_{\partial \Omega}^{} \left(
+              \frac{\partial u}{\partial \nu} \right)^2 ( x \cdot \nu ) ds = 0
+            \end{equation*}
+
           \item
+            Multiplying our differential equation by $u$ and integrating, we get
+            \begin{align*}
+              0 &= \int_{\Omega}^{} u \Delta u + u^{\sigma+1} dx \\
+              &= - \int_{\Omega}^{} | \nabla u |^2 dx + \int_{\Omega}^{} u^{\sigma+1} dx
+            \end{align*}
+
+            Substituting this into our Pohozaev identity gives
+            \begin{align*}
+              0 &= \frac{n-2}{2} \int_{\Omega}^{} | \nabla u |^2 dx - n \int_{\Omega}^{} F(u) dx + \frac{1}{2} \int_{\partial \Omega}^{} \left(
+              \frac{\partial u}{\partial \nu} \right)^2 (x \cdot \nu) ds \\
+              &= \frac{n-2}{2} \int_{\Omega}^{} u^{\sigma + 1} dx - n \int_{\Omega}^{} \int_{0}^{u} t^\sigma dt dx + \frac{1}{2}
+              \int_{\partial \Omega}^{} \left( \frac{\partial u}{\partial \nu} \right)^2 (x \cdot \nu) ds \\
+              &= \frac{n-2}{2} \int_{\Omega}^{} u^{\sigma+1} dx - \frac{n}{\sigma+1} \int_{\Omega}^{} u^{\sigma + 1} dx + \frac{1}{2}
+              \int_{\partial \Omega}^{} \left( \frac{\partial u}{\partial \nu} \right)^2 (x \cdot \nu) ds \\
+              &= \left( \frac{n-2}{2} - \frac{n}{\sigma+1} \right) \int_{\Omega}^{} u^{\sigma+1} dx + \frac{1}{2} \int_{\partial \Omega}^{} \left(
+              \frac{\partial u}{\partial \nu} \right)^2 (x \cdot \nu) ds
+            \end{align*}
+
+            We know $\Omega$ is a ball. Without loss of generality, we assume $\Omega$ is centered at the origin. Then $\nu$ points radially outward
+            and is parallel to $x$. Therefore, $(x \cdot \nu) \geq 0$ for all $x \in \partial \Omega$. So
+            \begin{equation*}
+              0 \leq \left( \frac{n-2}{2} - \frac{n}{\sigma+1} \right) \int_{\Omega}^{} u^{\sigma+1} dx
+            \end{equation*}
+
+            If $\sigma > \frac{n+2}{n-2}$, then
+            \begin{align*}
+              \frac{n-2}{2} - \frac{n}{\sigma + 1} < \frac{n-2}{2} - \frac{n}{ \frac{n+2}{n-2} + 1} \\
+              &= \frac{n-2}{2} - \frac{n}{ \frac{2n}{n-2}} \
+              &= \frac{n-2}{2} - \frac{n-2}{2} \\
+              &= 0
+            \end{align*}
+
+            Because $u$ is a positive solution, we would have
+            \begin{equation*}
+              0 > \left( \frac{n-2}{2} - \frac{n}{\sigma + 1} \right) \int_{\Omega}^{} u^{\sigma+1} dx
+            \end{equation*}
+            which is a contradiction. Therefore, there cannot be any positive solutions with $\sigma < \frac{n+2}{n-2}$.
 
         \end{enumerate}
 
