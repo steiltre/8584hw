@@ -71,6 +71,7 @@
     \begin{equation*}
       |(G'(u+w) - G'(u))v| \leq C \left| \int_{\Omega}^{} |u|^{\sigma-1} w v dx + \int_{\Omega}^{} |w|^{\sigma-1}w v dx \right|
     \end{equation*}
+    where we have used the fact that $a$ is smooth and $\Omega$ is bounded to get a bound on $a$.
 
     By H\"{o}lder's inequality,
     \[ \left|\int_{\Omega}^{} |w|^{\sigma-1} w v dx \right| \leq \left( \int_{\Omega}^{} |w|^{\sigma p} dx \right)^{\frac{1}{p}} \left( \int_{\Omega}^{} |v|^{p'} dx
@@ -210,20 +211,20 @@
             We know $\Omega$ is a ball. Without loss of generality, we assume $\Omega$ is centered at the origin. Then $\nu$ points radially outward
             and is parallel to $x$. Therefore, $(x \cdot \nu) \geq 0$ for all $x \in \partial \Omega$. So
             \begin{equation*}
-              0 \leq \left( \frac{n-2}{2} - \frac{n}{\sigma+1} \right) \int_{\Omega}^{} u^{\sigma+1} dx
+              0 \geq \left( \frac{n-2}{2} - \frac{n}{\sigma+1} \right) \int_{\Omega}^{} u^{\sigma+1} dx
             \end{equation*}
 
             If $\sigma > \frac{n+2}{n-2}$, then
             \begin{align*}
-              \frac{n-2}{2} - \frac{n}{\sigma + 1} < \frac{n-2}{2} - \frac{n}{ \frac{n+2}{n-2} + 1} \\
-              &= \frac{n-2}{2} - \frac{n}{ \frac{2n}{n-2}} \
+              \frac{n-2}{2} - \frac{n}{\sigma + 1} &> \frac{n-2}{2} - \frac{n}{ \frac{n+2}{n-2} + 1} \\
+              &= \frac{n-2}{2} - \frac{n}{ \frac{2n}{n-2}} \\
               &= \frac{n-2}{2} - \frac{n-2}{2} \\
               &= 0
             \end{align*}
 
             Because $u$ is a positive solution, we would have
             \begin{equation*}
-              0 > \left( \frac{n-2}{2} - \frac{n}{\sigma + 1} \right) \int_{\Omega}^{} u^{\sigma+1} dx
+              0 < \left( \frac{n-2}{2} - \frac{n}{\sigma + 1} \right) \int_{\Omega}^{} u^{\sigma+1} dx
             \end{equation*}
             which is a contradiction. Therefore, there cannot be any positive solutions with $\sigma < \frac{n+2}{n-2}$.
 
@@ -328,8 +329,40 @@
 
           Now we must show $F$ is differentiable. Let $u,v \in H^1(\Omega)$. Then
           \begin{align*}
-            | F(u+v) - F(u) - F'(u)v | &=
-          \end{align*}<++>
+            | F(u+v) &- F(u) - F'(u)v | \\
+            &= \left| \int_{\Omega}^{} \sqrt{ 1 + (u_x + v_x)^2 + (u_y + v_y)^2} - \sqrt{1 + u_x^2 + u_x^2}
+            - \frac{u_x v_x + u_y v_y}{\sqrt{1 + u_x^2 + u_y^2}} dx dy \right| \\
+            &= \left| \int_{\Omega}^{} \frac{\left( (1 + (u_x + v_x)^2 + (u_y + v_y)^2(1+u_x^2+u_y^2) \right)^{1/2} - (1 + u_x^2 + u_y^2) -u_x v_x -
+            u_y v_y}{(1+u_x^2+u_y^2)^{1/2}} dx dy \right| \\
+            &= \left| \int_{\Omega}^{} \frac{\left( (1+ | \nabla u + \nabla v |^2) (1 + | \nabla u |^2 \right)^{1/2} - (1 + |\nabla u |^2) - \nabla u
+            \cdot \nabla v}{( 1 + |\nabla u|^2)^{1/2}} dx \right| \\
+            &\leq \left| \int_{\Omega}{} \frac{(1+ | \nabla u | + | \nabla v |)(1 + | \nabla u) - (1 + | \nabla u |^2) - \nabla u \cdot \nabla v}{(1+
+            | \nabla u |^2 )^{1/2}} dx \right| \\
+            &= \left| \int_{\Omega}^{} \frac{2 | \nabla u | + | \nabla v | + | \nabla u | | \nabla v | - \nabla u \cdot \nabla v}{(1 + | \nabla u
+            |^2)^{1/2}} dx \right|
+          \end{align*}
+          From here, I want this term to be $o( \|v\|_{H^1_0} )$. I don't see how to get to that point, and the fact that I have extra $| \nabla u |$
+          terms left makes me think I did something incorrectly.
+
+          To show $F'$ is continuous, take $u,v,w \in H^1_0(\Omega)$. Then
+          \begin{align*}
+            | (F'(u)-F'(v))w| &= \left| \int_{\Omega}^{} \frac{u_x w_x + u_y w_y}{\sqrt{1 + u_x^2 + u_y^2}} - \frac{v_x w_x + v_y w_y}{\sqrt{1 + v_x^2 +
+            v_y^2}} dx dy \right| \\
+            &= \left| \int_{\Omega}^{} \frac{\nabla u \cdot \nabla w \sqrt{1+| \nabla v |^2} - \nabla v \cdot \nabla w \sqrt{1 + | \nabla u
+            |^2}}{\sqrt{(1 + | \nabla u|^2) (1 + | \nabla v |^2)}} dx dy \right| \\
+            &\leq \left| \int_{\Omega}^{} \nabla w \cdot \frac{( \nabla u \sqrt{1 + | \nabla v |^2} - \nabla v \sqrt{1 + | \nabla u |^2} )}{(1+|
+              \nabla u |^2)^{1/2} (1 + | \nabla v |^2)^{1/2}} dx dy \right| \\
+              &\leq \| w \|_{H^1_0} \left\| \frac{ \nabla u \sqrt{1 + | \nabla v |^2} - \nabla v \sqrt{1 - | \nabla v |^2 }}{(1+ | \nabla u |^2)^{1/2}
+              (1 + | \nabla v |^2)^{1/2}} \right\|_{L^2}
+          \end{align*}
+
+          I want to say the second term is less than or equal to $\|u-v\|_{H^1_0}$, but I don't see how to do that. Once I have that, I would be able
+          to say
+          \begin{align*}
+            \| F'(u) - F'(v) \|_{H^{-1}} &= \sup_{w \not= 0} \frac{| (F'(u) - F'(v))w|}{\|w\|_{H^1_0}} \\
+            &\leq \|u-v\|_{H^1_0}
+          \end{align*}
+          and $F'$ is therefore continuous.
 
         \item
           We see that $(1 + u_y^2) u_{xx} - 2 u_x u_x u_{xy} + (1+u_x^2) u_{yy} = 0$ if and only if
@@ -366,18 +399,11 @@
             &= \int_{\Omega}^{} \frac{\nabla u \cdot \nabla v}{\sqrt{1 + | \nabla u |^2}} dx
           \end{align*}
 
-          Now we must show $J$ is differentiable. Let $u,v \in H^1_0(\Omega)$.
-          \begin{align*}
-            | J(u+v) - J(u) - J'(u)v | &= \left| \int_{\Omega}^{} \sqrt{1 + | \nabla u + \nabla v |^2} - \sqrt{1 + | \nabla u |^2} - \frac{\nabla u \cdot
-            \nabla v}{\sqrt{1 + | \nabla u|^2}} dx \right| \\
-            &= \left| \int_{\Omega}^{} \frac{ \sqrt{ (1 + | \nabla u + \nabla v |^2 ) ( 1 + | \nabla v |^2 )} - (1 + | \nabla u |^2) - \nabla u \cdot
-          \nabla v}{\sqrt{1 + | \nabla u |^2}} dx \right| \\
-          &=
-          \end{align*}<++>
+          The calculations to show $J$ is $C^1$ are exactly the same as in part (a).
 
           Let $v \in H^1_0(\Omega)$. Then
           \begin{align*}
-            0 &= \int_{\Omega}^{} \div \left( \frac{\nabla u}{( 1 + | \nabla u |^2 )^{1/2}} \right) dx \\
+            0 &= \int_{\Omega}^{} \div \left( \frac{\nabla u}{( 1 + | \nabla u |^2 )^{1/2}} \right) v dx \\
             &= - \int_{\Omega}^{} \frac{\nabla u \cdot \nabla v}{ (1 + | \nabla u |^2 )^{1/2}} dx
           \end{align*}
 
